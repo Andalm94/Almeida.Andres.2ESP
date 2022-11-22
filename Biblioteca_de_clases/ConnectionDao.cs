@@ -17,7 +17,7 @@ namespace Biblioteca_de_clases
         static ConnectionDao()
         {
             connectionString = @"Data Source = .;
-                                 Database = DB_UTN;
+                                 Database = parcial_dos;
                                  Trusted_Connection = True;";
 
             command = new SqlCommand();

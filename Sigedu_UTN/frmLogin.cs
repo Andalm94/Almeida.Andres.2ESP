@@ -17,45 +17,52 @@ namespace Sigedu_UTN
         //========================================= LOGIN ==================================================
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-
-            //Se recibe el usuario y contraseña ingresados.
-            //Se buscan los datos del usuario ingresado
-            string usuarioIngresado = txtUser.Text;
-            string passIngresada = txtPassword.Text;
-            usuarioUTN usuarioLogueado = ConnectionDao.ObtenerDatosAccesoUsuario(usuarioIngresado);
-
-
-
-            //Se valida que la contraseña ingresada corresponda al usuario ingresado
-            //Devuelve el tipo de usuario logueado: (0:Admin | 1:Profesor | 2:Alumno)
-            int tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, usuarioIngresado, passIngresada);
-
-            if(tipoDeUsuarioLogueado != -1)
+            try
             {
-                switch (tipoDeUsuarioLogueado)
+                //Se recibe el usuario y contraseña ingresados.
+                //Se buscan los datos del usuario ingresado
+                string usuarioIngresado = txtUser.Text;
+                string passIngresada = txtPassword.Text;
+                usuarioUTN usuarioLogueado = ConnectionDao.ObtenerDatosAccesoUsuario(usuarioIngresado);
+
+
+
+                //Se valida que la contraseña ingresada corresponda al usuario ingresado
+                //Devuelve el tipo de usuario logueado: (0:Admin | 1:Profesor | 2:Alumno)
+                int tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, usuarioIngresado, passIngresada);
+
+                if (tipoDeUsuarioLogueado != -1)
                 {
-                    case 0:
-                        frmAdmin frmAdmin = new frmAdmin();
-                        frmAdmin.Show();
-                        this.Hide();
-                        break;
-                    case 1:
-                        frmProfesor frmProfesor = new frmProfesor(usuarioIngresado);
-                        frmProfesor.Show();
-                        this.Hide();
-                        break;
-                    case 2:
-                        frmAlumno frmAlumno = new frmAlumno(usuarioIngresado);
-                        frmAlumno.Show();
-                        this.Hide();
-                        break;
-                }
+                    switch (tipoDeUsuarioLogueado)
+                    {
+                        case 0:
+                            frmAdmin frmAdmin = new frmAdmin();
+                            frmAdmin.Show();
+                            this.Hide();
+                            break;
+                        case 1:
+                            frmProfesor frmProfesor = new frmProfesor(usuarioIngresado);
+                            frmProfesor.Show();
+                            this.Hide();
+                            break;
+                        case 2:
+                            frmAlumno frmAlumno = new frmAlumno(usuarioIngresado);
+                            frmAlumno.Show();
+                            this.Hide();
+                            break;
+                    }
 
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos.");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Usuario o contraseña incorrectos.");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
