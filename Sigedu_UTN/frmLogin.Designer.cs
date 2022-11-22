@@ -39,7 +39,7 @@
             this.btnAdmin = new System.Windows.Forms.Button();
             this.imgLogin = new System.Windows.Forms.PictureBox();
             this.btnIngresar = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlRight = new System.Windows.Forms.Panel();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             this.picSalir = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogin)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlRight.SuspendLayout();
             this.pnlLeft.SuspendLayout();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSalir)).BeginInit();
@@ -170,18 +170,18 @@
             this.btnIngresar.UseVisualStyleBackColor = true;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
-            // panel1
+            // pnlRight
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
-            this.panel1.Controls.Add(this.lblUser);
-            this.panel1.Controls.Add(this.txtUser);
-            this.panel1.Controls.Add(this.lblPass);
-            this.panel1.Controls.Add(this.txtPassword);
-            this.panel1.Controls.Add(this.btnIngresar);
-            this.panel1.Location = new System.Drawing.Point(219, 35);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(337, 276);
-            this.panel1.TabIndex = 15;
+            this.pnlRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.pnlRight.Controls.Add(this.lblUser);
+            this.pnlRight.Controls.Add(this.txtUser);
+            this.pnlRight.Controls.Add(this.lblPass);
+            this.pnlRight.Controls.Add(this.txtPassword);
+            this.pnlRight.Controls.Add(this.btnIngresar);
+            this.pnlRight.Location = new System.Drawing.Point(219, 35);
+            this.pnlRight.Name = "pnlRight";
+            this.pnlRight.Size = new System.Drawing.Size(337, 276);
+            this.pnlRight.TabIndex = 15;
             // 
             // pnlLeft
             // 
@@ -266,18 +266,18 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(556, 311);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlRight);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlLeft);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmLogin";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIGEDU - Login";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imgLogin)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlRight.ResumeLayout(false);
+            this.pnlRight.PerformLayout();
             this.pnlLeft.ResumeLayout(false);
             this.pnlLeft.PerformLayout();
             this.pnlTop.ResumeLayout(false);
@@ -299,7 +299,7 @@
         private Button btnAdmin;
         private PictureBox imgLogin;
         private Button btnIngresar;
-        private Panel panel1;
+        private Panel pnlRight;
         private Panel pnlLeft;
         private Label label1;
         private Panel pnlTop;

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca_de_clases", "Biblioteca_de_clases\Biblioteca_de_clases.csproj", "{666D7C54-BF16-4E61-A12C-87AD8B1ECB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sigedu_UTN", "Sigedu_UTN\Sigedu_UTN.csproj", "{E8AC587F-3C99-4662-82CC-8BC79EBBA1DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sigedu_UTN", "Sigedu_UTN\Sigedu_UTN.csproj", "{E8AC587F-3C99-4662-82CC-8BC79EBBA1DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SIGEDU", "Test_SIGEDU\Test_SIGEDU.csproj", "{A42AA020-C537-44C1-9106-37AE5C6ACA55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E8AC587F-3C99-4662-82CC-8BC79EBBA1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8AC587F-3C99-4662-82CC-8BC79EBBA1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8AC587F-3C99-4662-82CC-8BC79EBBA1DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42AA020-C537-44C1-9106-37AE5C6ACA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42AA020-C537-44C1-9106-37AE5C6ACA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42AA020-C537-44C1-9106-37AE5C6ACA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42AA020-C537-44C1-9106-37AE5C6ACA55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

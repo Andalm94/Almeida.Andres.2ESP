@@ -20,10 +20,6 @@ namespace Biblioteca_de_clases
             this.Email = email;
         }
 
-
-
-
-
         public Profesor() : this(-1, "", "", "", "", "")
         {
         }

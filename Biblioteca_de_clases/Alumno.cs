@@ -22,12 +22,6 @@ namespace Biblioteca_de_clases
             this.Email = email;
         }
 
-        public Alumno (int tipoUsuario, string user, string pass, string nombre) 
-            : this(tipoUsuario, user, pass, nombre, "", "")
-        {
-
-        }
-
         public Alumno() : this (-1, "", "", "", "", "")
         {
 

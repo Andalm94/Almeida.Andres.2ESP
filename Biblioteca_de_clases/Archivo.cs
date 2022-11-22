@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Biblioteca_de_clases
 {
-    public class Archivo<T> where T : usuarioUTN
+    public class Archivo<T> where T : usuarioUTN, IGestionUsuarios 
     {
         private string path;
 

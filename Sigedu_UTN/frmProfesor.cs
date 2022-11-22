@@ -21,12 +21,10 @@ namespace Sigedu_UTN
         //Declaracion de variables a utilizar en el formulario:
 
         Profesor profesorLogueado;
-        private string user;
 
-        BindingList<string> materiasDictando = new BindingList<string>();
-        BindingList<string> examenesMostrados = new BindingList<string>();
-        BindingList<string> listadoAlumnosAEvaluar = new BindingList<string>();
-        Dictionary<string, int> alumnosEvaluados = new Dictionary<string, int>();
+        BindingList<string> materiasDictando;
+        BindingList<string> examenesMostrados;
+        BindingList<string> listadoAlumnosAEvaluar;
 
 
         Materia materiaSeleccionada = new Materia();
@@ -40,21 +38,15 @@ namespace Sigedu_UTN
         public frmProfesor(string user)
         {
             InitializeComponent();
-            profesorLogueado = Connection.BuscarProfesorPorUser(user);
-        }
-
-
-        private void frmProfesor_Load_1(object sender, EventArgs e)
-        {
-
-            //Se carga el listado de materias del profesor logueado
-            materiasDictando = Connection.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorLogueado.Id);
-
+            //Busco el profesor logueado y cargo su listado de materias.
+            profesorLogueado = ConnectionDao.BuscarProfesorPorUser(user);
+            materiasDictando = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorLogueado.Id);
             cmbMateria.DataSource = materiasDictando;
-
             listMaterias.DataSource = materiasDictando;
 
-            
+
+            cmbMateria.DataSource = materiasDictando;
+            listMaterias.DataSource = materiasDictando;
 
 
             //Se cargan los datos del profesor logueado
@@ -64,17 +56,23 @@ namespace Sigedu_UTN
 
         }
 
+
+
         //------------------------------------ Crear examen -------------------------------------
 
         private void btnCrearExamen_Click(object sender, EventArgs e)
         {
-            Materia materiaNuevoExamen = Connection.BuscarMateriaPorNombre(listMaterias.Text);
+            //Se busca la materia seleccionada en la DB.
+            //Se toma el nombre y la fecha del examen.
+            Materia materiaNuevoExamen = ConnectionDao.BuscarMateriaPorNombre(listMaterias.Text);
             string nombreExamen = txtNombreExamen.Text;
             string fecha = dttFecha.Text;
 
-            Connection.CrearNuevoExamen(nombreExamen, fecha, materiaNuevoExamen.Id);
 
+            //Con la informacion recibida se crea un nuevo examen.
+            ConnectionDao.CrearNuevoExamen(nombreExamen, fecha, materiaNuevoExamen.Id);
             txtNombreExamen.Text = "";
+            MessageBox.Show($"Examen creado exitosamente para la materia {materiaNuevoExamen.Nombre}");
         }
 
 
@@ -84,63 +82,53 @@ namespace Sigedu_UTN
 
         private void cmbMateria_TextChanged(object sender, EventArgs e)
         {
-            materiaSeleccionada = Connection.BuscarMateriaPorNombre(cmbMateria.Text);
-            cmbExamenes.DataSource = Connection.ObtenerListadoExamenesDeMateriaSeleccionada(materiaSeleccionada.Id);
+            //Se busca la materia seleccionada.
+            //Se buscan los examenes asociados a la materia.
+            materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateria.Text);
+            cmbExamenes.DataSource = ConnectionDao.ObtenerListadoExamenesDeMateriaSeleccionada(materiaSeleccionada.Id);
             cmbAlumnosEvaluados.Text = "";
             cmbExamenes.Text = "";
         }
 
+
+
         private void cmbExamenes_TextChanged(object sender, EventArgs e)
         {
+            //Se busca el examen seleccionado
+            //Se buscan los alumnos asociados a la materia de ese examen.
             cmbAlumnosEvaluados.Text = "";
-            Examen examenSeleccionado = Connection.BuscarExamenPorNombre(cmbExamenes.Text);
+            Examen examenSeleccionado = ConnectionDao.BuscarExamenPorNombre(cmbExamenes.Text);
             lblExamenFecha.Text = $"Fecha: {examenSeleccionado.Fecha}";
-            listadoAlumnosAEvaluar = Connection.ObtenerListadoDeNombresDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
+            listadoAlumnosAEvaluar = ConnectionDao.ObtenerListadoDeNombresDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
             cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
 
         }
-
 
 
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            alumnoSeleccionado = Connection.BuscarAlumnoPorNombre(cmbAlumnosEvaluados.Text);
+            //Se busca el alumno seleccionado y se recibe la nota.
+            //Se carga la nota de ese examen a la DB
+            alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbAlumnosEvaluados.Text);
             float nota = (float)numNota.Value;
-            Connection.CargarNotaAAlumno(alumnoSeleccionado.Id, materiaSeleccionada.Id, nota);
+            ConnectionDao.CargarNotaAAlumno(alumnoSeleccionado.Id, materiaSeleccionada.Id, nota);
             
+
+
+            //Se elimina el alumno del listado de alumnos a evaluar
+            //Se muestra al usuario el ultimo alumno y nota asignada
             listadoAlumnosAEvaluar.Remove(alumnoSeleccionado.Nombre);
             cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
-
-
             cmbAlumnosEvaluados.Text = "";
             lblUltimoCalificado.Text = $"Alumno evaluado: {alumnoSeleccionado.Nombre}";
             lblUltimaNota.Text = $"Nota asignada: {nota}";
-
         }
-
-
-        private void RefrescarListados()
-        {
-            cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
-        }
-
 
 
         //==============================================================================================
 
-        private void picSalir_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            frmLogin frmLogin = new frmLogin();
-            frmLogin.Show();
-            this.Hide();
-
-        }
 
         private void btnEditarDatos_Click(object sender, EventArgs e)
         {
@@ -172,6 +160,21 @@ namespace Sigedu_UTN
                 btnEditarDatos.Text = "Guardar datos";
 
             }
+
+        }
+
+
+
+        private void picSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.Show();
+            this.Hide();
 
         }
 

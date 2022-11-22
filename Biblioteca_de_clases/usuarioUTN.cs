@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Biblioteca_de_clases
 {
-    public class usuarioUTN
+    public class usuarioUTN : IGestionUsuarios
     {
         private int id;
         private int tipoUsuario;

@@ -22,10 +22,6 @@ namespace Biblioteca_de_clases
         {
 
         }
-        
-        public Materia(string nombre, int cuatrimestre) : this(-1, nombre, cuatrimestre)
-        {
-        }
 
         public Materia(int id, string nombre, int cuatrimestre)
         {

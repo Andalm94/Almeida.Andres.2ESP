@@ -9,34 +9,26 @@ namespace Sigedu_UTN
     public partial class frmLogin : Form
     {
 
-        private int tipoDeUsuarioLogueado;
-        List<usuarioUTN> usuarios;
-        usuarioUTN? usuarioLogueado;
-
-        public string? usuarioIngresado;
-        private string? passIngresada;
-
         public frmLogin()
         {
             InitializeComponent();
         }
 
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-        //Login:
+        //========================================= LOGIN ==================================================
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            usuarioIngresado = txtUser.Text;
-            passIngresada = txtPassword.Text;
 
-            usuarioLogueado = Connection.ObtenerDatosAccesoUsuario(usuarioIngresado);
+            //Se recibe el usuario y contraseña ingresados.
+            //Se buscan los datos del usuario ingresado
+            string usuarioIngresado = txtUser.Text;
+            string passIngresada = txtPassword.Text;
+            usuarioUTN usuarioLogueado = ConnectionDao.ObtenerDatosAccesoUsuario(usuarioIngresado);
 
-            tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, usuarioIngresado, passIngresada);
+
+
+            //Se valida que la contraseña ingresada corresponda al usuario ingresado
+            //Devuelve el tipo de usuario logueado: (0:Admin | 1:Profesor | 2:Alumno)
+            int tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, usuarioIngresado, passIngresada);
 
             if(tipoDeUsuarioLogueado != -1)
             {
@@ -67,6 +59,15 @@ namespace Sigedu_UTN
 
         }
 
+
+        /// <summary>
+        /// Recibe un usuario y los datos de acceso ingresados.
+        /// Valida que los datos de user/pass del usuario correspondan a los ingresados.
+        /// </summary>
+        /// <param name="usuarioLogueado">Usuario comado de la DB</param>
+        /// <param name="user">Input del usuario</param>
+        /// <param name="pass">Input del usuario</param>
+        /// <returns>Devuelve el tipo de usuario logueado (0:Admin | 1:Profesor | 2:Alumno)</returns>
         private int ValidarUsuario(usuarioUTN usuarioLogueado, string user, string pass)
         {
             int respuesta = -1;
@@ -84,7 +85,8 @@ namespace Sigedu_UTN
 
 
 
-        //Botones de carga de datos de acceso:
+
+        //=========================== Botones de hardcodeo de datos de acceso ========================================
         private void btnAdmin_Click(object sender, EventArgs e)
         {
 
@@ -106,13 +108,20 @@ namespace Sigedu_UTN
 
 
 
-        //===================================================================================================
+
+
+
+        //============================================ SALIR =========================================================
         private void picSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
 
+
+
+
+        //=========================== Funcionalidad para desplazar la ventana con el pnlTop ==========================
         int mouse;
         int mX;
         int mY;

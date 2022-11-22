@@ -273,6 +273,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAlumno";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alumno";
             this.Load += new System.EventHandler(this.frmAlumno_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imgAvatar)).EndInit();

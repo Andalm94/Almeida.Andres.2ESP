@@ -62,7 +62,7 @@
             // 
             this.lstMateriasCursando.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
             this.lstMateriasCursando.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstMateriasCursando.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lstMateriasCursando.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lstMateriasCursando.ForeColor = System.Drawing.Color.White;
             this.lstMateriasCursando.FormattingEnabled = true;
             this.lstMateriasCursando.ItemHeight = 16;
@@ -77,7 +77,7 @@
             // 
             this.lstMateriasHabilitadas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
             this.lstMateriasHabilitadas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstMateriasHabilitadas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lstMateriasHabilitadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lstMateriasHabilitadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(186)))), ((int)(((byte)(255)))));
             this.lstMateriasHabilitadas.FormattingEnabled = true;
             this.lstMateriasHabilitadas.ItemHeight = 16;
@@ -90,33 +90,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(21, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(398, 16);
+            this.label1.Size = new System.Drawing.Size(431, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Nota: Solo aparecerán  como habilitadas las materias que puedas";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(21, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(371, 16);
+            this.label2.Size = new System.Drawing.Size(399, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "cursar dependiendo de sus respectivas materias correlativas.";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label3.Location = new System.Drawing.Point(21, 48);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(401, 16);
+            this.label3.Size = new System.Drawing.Size(442, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "Ante cualquier duda, podés escribir a: info@sistemas-utnfra.com.ar ";
             // 
@@ -125,7 +125,7 @@
             this.btnInscribirse.FlatAppearance.BorderSize = 0;
             this.btnInscribirse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(30)))), ((int)(((byte)(40)))));
             this.btnInscribirse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInscribirse.Font = new System.Drawing.Font("Century Gothic", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.btnInscribirse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.btnInscribirse.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btnInscribirse.Location = new System.Drawing.Point(13, 224);
             this.btnInscribirse.Name = "btnInscribirse";
@@ -140,7 +140,7 @@
             this.btnVolver.FlatAppearance.BorderSize = 0;
             this.btnVolver.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(120)))), ((int)(((byte)(35)))));
             this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.Font = new System.Drawing.Font("Century Gothic", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.btnVolver.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btnVolver.Location = new System.Drawing.Point(422, 0);
             this.btnVolver.Name = "btnVolver";
@@ -154,7 +154,7 @@
             // 
             this.lstMateriasAprobadas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
             this.lstMateriasAprobadas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstMateriasAprobadas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lstMateriasAprobadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lstMateriasAprobadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(181)))), ((int)(((byte)(67)))));
             this.lstMateriasAprobadas.FormattingEnabled = true;
             this.lstMateriasAprobadas.ItemHeight = 16;
@@ -239,10 +239,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(21, 21);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(169, 19);
+            this.label5.Size = new System.Drawing.Size(173, 20);
             this.label5.TabIndex = 1;
             this.label5.Text = "Materias aprobadas:";
             // 
@@ -272,10 +272,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(20, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(155, 19);
+            this.label6.Size = new System.Drawing.Size(162, 20);
             this.label6.TabIndex = 2;
             this.label6.Text = "Materias cursando:";
             // 
@@ -293,10 +293,10 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(13, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(169, 19);
+            this.label7.Size = new System.Drawing.Size(175, 20);
             this.label7.TabIndex = 3;
             this.label7.Text = "Materias habilitadas:";
             // 
@@ -313,6 +313,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmInscripcionMaterias";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmInscripcionMaterias";
             this.Load += new System.EventHandler(this.frmInscripcionMaterias_Load);
             this.pnlTop.ResumeLayout(false);

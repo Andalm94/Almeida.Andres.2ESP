@@ -594,8 +594,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProfesor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIGEDU - Profesor";
-            this.Load += new System.EventHandler(this.frmProfesor_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.imgAvatar)).EndInit();
             this.grpCrearExamen.ResumeLayout(false);
             this.grpCrearExamen.PerformLayout();

@@ -31,7 +31,14 @@ namespace Sigedu_UTN
         }
 
 
-
+        /// <summary>
+        /// Muestra el listado de materias habilitadas para la inscripcion del alumno.
+        /// Filtra las materias que ya está cursando y las que tiene aprobadas.
+        /// Muestra solo las que cumplen con la condicion de tener las correlativas aprobadas.
+        /// </summary>
+        /// <param name="materiasAprobadas">Se eliminan del listado y se utilizan para determinar cuales puede inscribirse</param>
+        /// <param name="listaMateriasCursando">Se eliminan del listado</param>
+        /// <returns>Listado de materias habilitadas para inscribirse</returns>
         private BindingList<string> ListarMateriasHabilitadas(BindingList<string> materiasAprobadas, BindingList<string> listaMateriasCursando)
         {
             BindingList<string> materiasHabilitadas = new BindingList<string>();
@@ -41,18 +48,18 @@ namespace Sigedu_UTN
 
             //Obtengo el listado completo de materias
             List<string> materias = new List<string>();
-            materias.AddRange(Connection.CrearListadoDeMateriasPorCuatrimestre(1));
-            materias.AddRange(Connection.CrearListadoDeMateriasPorCuatrimestre(2));
-            materias.AddRange(Connection.CrearListadoDeMateriasPorCuatrimestre(3));
-            materias.AddRange(Connection.CrearListadoDeMateriasPorCuatrimestre(4));
+            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
+            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
 
 
 
 
             foreach(string materia in materias)
             {
-                materiaSeleccionada = Connection.BuscarMateriaPorNombre(materia);
-                List<string> listaMateriasCorrelativas = new List<string>(Connection.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
+                materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
+                List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
 
                 foreach(string materiaCorrelativa in listaMateriasCorrelativas)
                 {
@@ -86,14 +93,16 @@ namespace Sigedu_UTN
 
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             string materiaSeleccionada = lstMateriasHabilitadas.Text;
             if(materiaSeleccionada != "")
             {
 
-                Materia nuevaMateriaCursando = Connection.BuscarMateriaPorNombre(materiaSeleccionada); 
-                Connection.AsignarAlumnoAMateria(alumnoLogueado.Id, nuevaMateriaCursando.Id); 
+                Materia nuevaMateriaCursando = ConnectionDao.BuscarMateriaPorNombre(materiaSeleccionada); 
+                ConnectionDao.AsignarAlumnoAMateria(alumnoLogueado.Id, nuevaMateriaCursando.Id); 
 
                 RefrescarListados();
             }
@@ -101,10 +110,11 @@ namespace Sigedu_UTN
 
         }
 
+        //Actualiza las listas de materias cursando, aprobadas y habilitadas.
         private void RefrescarListados()
         {
-            materiasAprobadas = Connection.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoLogueado.Id);
-            materiasCursando = Connection.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
+            materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoLogueado.Id);
+            materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
             lstMateriasCursando.DataSource = materiasCursando;
             lstMateriasAprobadas.DataSource = materiasAprobadas;
             lstMateriasHabilitadas.DataSource = ListarMateriasHabilitadas(materiasAprobadas, materiasCursando);

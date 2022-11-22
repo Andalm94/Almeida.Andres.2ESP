@@ -141,7 +141,7 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(466, 309);
+            this.tabControl1.Size = new System.Drawing.Size(469, 309);
             this.tabControl1.TabIndex = 0;
             // 
             // tabNuevosUsuarios
@@ -162,9 +162,9 @@
             this.tabNuevosUsuarios.Location = new System.Drawing.Point(4, 24);
             this.tabNuevosUsuarios.Name = "tabNuevosUsuarios";
             this.tabNuevosUsuarios.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNuevosUsuarios.Size = new System.Drawing.Size(458, 281);
+            this.tabNuevosUsuarios.Size = new System.Drawing.Size(461, 281);
             this.tabNuevosUsuarios.TabIndex = 0;
-            this.tabNuevosUsuarios.Text = "Nuevos Usuarios";
+            this.tabNuevosUsuarios.Text = "Crear usuario";
             this.tabNuevosUsuarios.UseVisualStyleBackColor = true;
             // 
             // btnCreateUser
@@ -327,9 +327,9 @@
             this.tabCambioEstadoMateria.Location = new System.Drawing.Point(4, 24);
             this.tabCambioEstadoMateria.Name = "tabCambioEstadoMateria";
             this.tabCambioEstadoMateria.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCambioEstadoMateria.Size = new System.Drawing.Size(458, 281);
+            this.tabCambioEstadoMateria.Size = new System.Drawing.Size(461, 281);
             this.tabCambioEstadoMateria.TabIndex = 1;
-            this.tabCambioEstadoMateria.Text = "Estado de Materias";
+            this.tabCambioEstadoMateria.Text = "Estado materias";
             this.tabCambioEstadoMateria.UseVisualStyleBackColor = true;
             // 
             // lblEstadoMateria
@@ -418,9 +418,9 @@
             this.tabNuevasMaterias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabNuevasMaterias.Location = new System.Drawing.Point(4, 24);
             this.tabNuevasMaterias.Name = "tabNuevasMaterias";
-            this.tabNuevasMaterias.Size = new System.Drawing.Size(458, 281);
+            this.tabNuevasMaterias.Size = new System.Drawing.Size(461, 281);
             this.tabNuevasMaterias.TabIndex = 2;
-            this.tabNuevasMaterias.Text = "Nuevas Materias";
+            this.tabNuevasMaterias.Text = "Crear materia";
             this.tabNuevasMaterias.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -584,9 +584,9 @@
             this.tabAsignarMaterias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabAsignarMaterias.Location = new System.Drawing.Point(4, 24);
             this.tabAsignarMaterias.Name = "tabAsignarMaterias";
-            this.tabAsignarMaterias.Size = new System.Drawing.Size(458, 281);
+            this.tabAsignarMaterias.Size = new System.Drawing.Size(461, 281);
             this.tabAsignarMaterias.TabIndex = 3;
-            this.tabAsignarMaterias.Text = "Asignar Materias";
+            this.tabAsignarMaterias.Text = "Asignar Materia";
             this.tabAsignarMaterias.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -601,7 +601,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(228, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(230, 281);
+            this.panel2.Size = new System.Drawing.Size(233, 281);
             this.panel2.TabIndex = 27;
             // 
             // lblAsignarMateriaAlumno
@@ -771,7 +771,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 24);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(458, 281);
+            this.tabPage11.Size = new System.Drawing.Size(461, 281);
             this.tabPage11.TabIndex = 4;
             this.tabPage11.Text = "Exportar Datos";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -1016,6 +1016,7 @@
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmAdmin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin";
             this.Load += new System.EventHandler(this.frmAdmin_Load);
             this.tabControl1.ResumeLayout(false);

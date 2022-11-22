@@ -20,8 +20,8 @@ namespace Sigedu_UTN
         public frmAlumno(string user)
         {
             InitializeComponent();
-            alumnoLogueado = Connection.BuscarAlumnoPorUser(user);
-            this.materiasCursando = Connection.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
+            alumnoLogueado = ConnectionDao.BuscarAlumnoPorUser(user);
+            this.materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
         }
 
         private void frmAlumno_Load(object sender, EventArgs e)
