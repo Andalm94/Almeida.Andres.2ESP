@@ -23,7 +23,6 @@ namespace Sigedu_UTN
         Profesor profesorLogueado;
 
         BindingList<string> materiasDictando;
-        BindingList<string> examenesMostrados;
         BindingList<string> listadoAlumnosAEvaluar;
 
 
@@ -38,21 +37,30 @@ namespace Sigedu_UTN
         public frmProfesor(string user)
         {
             InitializeComponent();
-            //Busco el profesor logueado y cargo su listado de materias.
-            profesorLogueado = ConnectionDao.BuscarProfesorPorUser(user);
-            materiasDictando = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorLogueado.Id);
-            cmbMateria.DataSource = materiasDictando;
-            listMaterias.DataSource = materiasDictando;
+            
+            try
+            {
+                //Busco el profesor logueado y cargo su listado de materias.
+                profesorLogueado = ConnectionDao.BuscarProfesorPorUser(user);
+                materiasDictando = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorLogueado.Id);
+                cmbMateria.DataSource = materiasDictando;
+                listMaterias.DataSource = materiasDictando;
 
 
-            cmbMateria.DataSource = materiasDictando;
-            listMaterias.DataSource = materiasDictando;
+                cmbMateria.DataSource = materiasDictando;
+                listMaterias.DataSource = materiasDictando;
 
 
-            //Se cargan los datos del profesor logueado
-            lblNombre.Text = profesorLogueado.Nombre;
-            txtTelefono.Text = profesorLogueado.Telefono;
-            txtMail.Text = profesorLogueado.Email;
+                //Se cargan los datos del profesor logueado
+                lblNombre.Text = profesorLogueado.Nombre;
+                txtTelefono.Text = profesorLogueado.Telefono;
+                txtMail.Text = profesorLogueado.Email;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -62,17 +70,25 @@ namespace Sigedu_UTN
 
         private void btnCrearExamen_Click(object sender, EventArgs e)
         {
-            //Se busca la materia seleccionada en la DB.
-            //Se toma el nombre y la fecha del examen.
-            Materia materiaNuevoExamen = ConnectionDao.BuscarMateriaPorNombre(listMaterias.Text);
-            string nombreExamen = txtNombreExamen.Text;
-            string fecha = dttFecha.Text;
+            try
+            {
+                //Se busca la materia seleccionada en la DB.
+                //Se toma el nombre y la fecha del examen.
+                Materia materiaNuevoExamen = ConnectionDao.BuscarMateriaPorNombre(listMaterias.Text);
+                string nombreExamen = txtNombreExamen.Text;
+                string fecha = dttFecha.Text;
 
 
-            //Con la informacion recibida se crea un nuevo examen.
-            ConnectionDao.CrearNuevoExamen(nombreExamen, fecha, materiaNuevoExamen.Id);
-            txtNombreExamen.Text = "";
-            MessageBox.Show($"Examen creado exitosamente para la materia {materiaNuevoExamen.Nombre}");
+                //Con la informacion recibida se crea un nuevo examen.
+                ConnectionDao.CrearNuevoExamen(nombreExamen, fecha, materiaNuevoExamen.Id);
+                txtNombreExamen.Text = "";
+                MessageBox.Show($"Examen creado exitosamente para la materia {materiaNuevoExamen.Nombre}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
@@ -82,25 +98,41 @@ namespace Sigedu_UTN
 
         private void cmbMateria_TextChanged(object sender, EventArgs e)
         {
-            //Se busca la materia seleccionada.
-            //Se buscan los examenes asociados a la materia.
-            materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateria.Text);
-            cmbExamenes.DataSource = ConnectionDao.ObtenerListadoExamenesDeMateriaSeleccionada(materiaSeleccionada.Id);
-            cmbAlumnosEvaluados.Text = "";
-            cmbExamenes.Text = "";
+            try
+            {
+                //Se busca la materia seleccionada.
+                //Se buscan los examenes asociados a la materia.
+                materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateria.Text);
+                cmbExamenes.DataSource = ConnectionDao.ObtenerListadoExamenesDeMateriaSeleccionada(materiaSeleccionada.Id);
+                cmbAlumnosEvaluados.Text = "";
+                cmbExamenes.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
 
         private void cmbExamenes_TextChanged(object sender, EventArgs e)
         {
-            //Se busca el examen seleccionado
-            //Se buscan los alumnos asociados a la materia de ese examen.
-            cmbAlumnosEvaluados.Text = "";
-            Examen examenSeleccionado = ConnectionDao.BuscarExamenPorNombre(cmbExamenes.Text);
-            lblExamenFecha.Text = $"Fecha: {examenSeleccionado.Fecha}";
-            listadoAlumnosAEvaluar = ConnectionDao.ObtenerListadoDeNombresDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
-            cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
+            try
+            {
+                //Se busca el examen seleccionado
+                //Se buscan los alumnos asociados a la materia de ese examen.
+                cmbAlumnosEvaluados.Text = "";
+                Examen examenSeleccionado = ConnectionDao.BuscarExamenPorNombre(cmbExamenes.Text);
+                lblExamenFecha.Text = $"Fecha: {examenSeleccionado.Fecha}";
+                listadoAlumnosAEvaluar = ConnectionDao.ObtenerListadoDeNombresDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
+                cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -108,21 +140,29 @@ namespace Sigedu_UTN
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            //Se busca el alumno seleccionado y se recibe la nota.
-            //Se carga la nota de ese examen a la DB
-            alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbAlumnosEvaluados.Text);
-            float nota = (float)numNota.Value;
-            ConnectionDao.CargarNotaAAlumno(alumnoSeleccionado.Id, materiaSeleccionada.Id, nota);
-            
+            try
+            {
+                //Se busca el alumno seleccionado y se recibe la nota.
+                //Se carga la nota de ese examen a la DB
+                alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbAlumnosEvaluados.Text);
+                float nota = (float)numNota.Value;
+                ConnectionDao.CargarNotaAAlumno(alumnoSeleccionado.Id, materiaSeleccionada.Id, nota);
 
 
-            //Se elimina el alumno del listado de alumnos a evaluar
-            //Se muestra al usuario el ultimo alumno y nota asignada
-            listadoAlumnosAEvaluar.Remove(alumnoSeleccionado.Nombre);
-            cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
-            cmbAlumnosEvaluados.Text = "";
-            lblUltimoCalificado.Text = $"Alumno evaluado: {alumnoSeleccionado.Nombre}";
-            lblUltimaNota.Text = $"Nota asignada: {nota}";
+
+                //Se elimina el alumno del listado de alumnos a evaluar
+                //Se muestra al usuario el ultimo alumno y nota asignada
+                listadoAlumnosAEvaluar.Remove(alumnoSeleccionado.Nombre);
+                cmbAlumnosEvaluados.DataSource = listadoAlumnosAEvaluar;
+                cmbAlumnosEvaluados.Text = "";
+                lblUltimoCalificado.Text = $"Alumno evaluado: {alumnoSeleccionado.Nombre}";
+                lblUltimaNota.Text = $"Nota asignada: {nota}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 

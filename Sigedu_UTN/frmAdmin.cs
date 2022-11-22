@@ -36,11 +36,17 @@ namespace Sigedu_UTN
             InitializeComponent();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
-            listadoAlumnosTotales = ConnectionDao.ObtenerNombresAlumnos();
-            listadoProfesoresTotales = ConnectionDao.ObtenerNombresProfesores();
-            cmbMateriaExport.DataSource = ConnectionDao.ListarMateriasTotales();
-            
-            
+            try
+            {
+                listadoAlumnosTotales = ConnectionDao.ObtenerNombresAlumnos();
+                listadoProfesoresTotales = ConnectionDao.ObtenerNombresProfesores();
+                cmbMateriaExport.DataSource = ConnectionDao.ListarMateriasTotales();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             materiasDeAlumnoSeleccionado = new BindingList<string>();
             materiasDisponiblesParaProfesor = new BindingList<string>();
             materiasHabilitadasParaAlumno = new BindingList<string>();
@@ -71,8 +77,15 @@ namespace Sigedu_UTN
             string telefonoNuevoUsuario = txtNewUserTel.Text;
             string emailNuevoUsuario = txtNewUserMail.Text;
             int tipoUsuario = codificarTipoUsuario();
+            try
+            {
+                ConnectionDao.CrearNuevoUsuario(tipoUsuario, userNuevoUsuario, passNuevoUsuario, nombreNuevoUsuario, telefonoNuevoUsuario, emailNuevoUsuario);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            ConnectionDao.CrearNuevoUsuario(tipoUsuario, userNuevoUsuario, passNuevoUsuario, nombreNuevoUsuario, telefonoNuevoUsuario, emailNuevoUsuario);
             
             MessageBox.Show("Usuario creado exitosamente");
             txtNewUser.Text = "";
@@ -112,70 +125,94 @@ namespace Sigedu_UTN
         //Cambia el Estado de la materia (1:Regular/0:Libre) del alumno seleccionado.
         private void btnCambiarEstadoMateria_Click(object sender, EventArgs e)
         {
-            //Recibimos los inputs del usuario
-            string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
-            string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
-
-
-            //Buscamos al alumno y la materia seleccionada. Luego obtengo el ID de su relacion y su estado
-            Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
-            Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
-            int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-            int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
-
-
-            //Alternamos el estado de esa materia
-            if (estadoMateria == 1)
+            try
             {
-                ConnectionDao.CambiarEstadoMateria(idRelacion, 0);
-                picEstadoMateria.BackColor = Color.IndianRed;
-                lblEstadoMateria.Text = "Libre";
-                lblEstadoMateria.BackColor = Color.IndianRed;
+                //Recibimos los inputs del usuario
+                string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
+                string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
+
+
+                //Buscamos al alumno y la materia seleccionada. Luego obtengo el ID de su relacion y su estado
+                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
+                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
+                int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
+                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
+
+
+                //Alternamos el estado de esa materia
+                if (estadoMateria == 1)
+                {
+                    ConnectionDao.CambiarEstadoMateria(idRelacion, 0);
+                    picEstadoMateria.BackColor = Color.IndianRed;
+                    lblEstadoMateria.Text = "Libre";
+                    lblEstadoMateria.BackColor = Color.IndianRed;
+                }
+                else if (estadoMateria == 0)
+                {
+                    ConnectionDao.CambiarEstadoMateria(idRelacion, 1);
+                    picEstadoMateria.BackColor = Color.YellowGreen;
+                    lblEstadoMateria.Text = "Regular";
+                    lblEstadoMateria.BackColor = Color.YellowGreen;
+                }
             }
-            else if (estadoMateria == 0)
+            catch (Exception ex)
             {
-                ConnectionDao.CambiarEstadoMateria(idRelacion, 1);
-                picEstadoMateria.BackColor = Color.YellowGreen;
-                lblEstadoMateria.Text = "Regular";
-                lblEstadoMateria.BackColor = Color.YellowGreen;
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
         private void cmbMateriasAlumnoSeleccionado_TextChanged(object sender, EventArgs e)
         {
-            //Recibimos los inputs del usuario
-            string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
-            string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
-
-            //Buscamos al alumno seleccionado
-            Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
-            Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
-            int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-            int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
-
-
-
-            if (estadoMateria == 1)
+            try
             {
-                picEstadoMateria.BackColor = Color.YellowGreen;
-                lblEstadoMateria.Text = "Regular";
-                lblEstadoMateria.BackColor = Color.YellowGreen;
+                //Recibimos los inputs del usuario
+                string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
+                string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
+
+                //Buscamos al alumno seleccionado
+                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
+                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
+                int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
+                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
+
+
+
+                if (estadoMateria == 1)
+                {
+                    picEstadoMateria.BackColor = Color.YellowGreen;
+                    lblEstadoMateria.Text = "Regular";
+                    lblEstadoMateria.BackColor = Color.YellowGreen;
+                }
+                else if (estadoMateria == 0)
+                {
+                    picEstadoMateria.BackColor = Color.IndianRed;
+                    lblEstadoMateria.Text = "Libre";
+                    lblEstadoMateria.BackColor = Color.IndianRed;
+                }
             }
-            else if (estadoMateria == 0)
+            catch(Exception ex)
             {
-                picEstadoMateria.BackColor = Color.IndianRed;
-                lblEstadoMateria.Text = "Libre";
-                lblEstadoMateria.BackColor = Color.IndianRed;
+                MessageBox.Show(ex.Message);
             }
+            
         }
 
         private void cmbSeleccionarAlumno_TextChanged(object sender, EventArgs e)
         {
-            Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
+            try
+            {
+                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
 
-            materiasDeAlumnoSeleccionado = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-            cmbMateriasAlumnoSeleccionado.DataSource = materiasDeAlumnoSeleccionado;
+                materiasDeAlumnoSeleccionado = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
+                cmbMateriasAlumnoSeleccionado.DataSource = materiasDeAlumnoSeleccionado;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
@@ -186,20 +223,28 @@ namespace Sigedu_UTN
         //===================================== CREAR NUEVA MATERIA ==================================================
         private void btnCrearMateria_Click(object sender, EventArgs e)
         {
-            //Recibimos los datos cargados y lo cargamos a la DB
-            string nombreNuevaMateria = txtNuevaMateria.Text;
-            int cuatrimestre = TomarCuatrimestreDeNuevaMateria();
-            List<string> materiasCorrelativasSeleccionadas = recibirMateriasCorrelativasIngresadas();
-            ConnectionDao.CrearNuevaMateria(nombreNuevaMateria, cuatrimestre);
+            try
+            {
+                //Recibimos los datos cargados y lo cargamos a la DB
+                string nombreNuevaMateria = txtNuevaMateria.Text;
+                int cuatrimestre = TomarCuatrimestreDeNuevaMateria();
+                List<string> materiasCorrelativasSeleccionadas = recibirMateriasCorrelativasIngresadas();
+                ConnectionDao.CrearNuevaMateria(nombreNuevaMateria, cuatrimestre);
 
-            //Buscamos la materia recien creada para obtener su ID
-            //Le cargamos las materias correlativas seleccionadas
-            Materia nuevaMateria = ConnectionDao.BuscarMateriaPorNombre(nombreNuevaMateria);
-            ConnectionDao.CargarMateriasCorrelativas(nuevaMateria.Id, materiasCorrelativasSeleccionadas);
+                //Buscamos la materia recien creada para obtener su ID
+                //Le cargamos las materias correlativas seleccionadas
+                Materia nuevaMateria = ConnectionDao.BuscarMateriaPorNombre(nombreNuevaMateria);
+                ConnectionDao.CargarMateriasCorrelativas(nuevaMateria.Id, materiasCorrelativasSeleccionadas);
 
 
-            MessageBox.Show($"Se ha cargado exitosamente la siguiente materia: \n\n Nombre: {nombreNuevaMateria}" +
-                $"\n Cuatrimestre: {cuatrimestre}");
+                MessageBox.Show($"Se ha cargado exitosamente la siguiente materia: \n\n Nombre: {nombreNuevaMateria}" +
+                    $"\n Cuatrimestre: {cuatrimestre}");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private int TomarCuatrimestreDeNuevaMateria()
@@ -240,9 +285,16 @@ namespace Sigedu_UTN
 
         private void cmbCuatriSeleccionado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindingList<string> seleccionMateriasCorrelativas = ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(int.Parse(cmbCuatriSeleccionado.Text));
+            try
+            {
+                BindingList<string> seleccionMateriasCorrelativas = ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(int.Parse(cmbCuatriSeleccionado.Text));
+                listSeleccionarMateriasCorrelativas.DataSource = seleccionMateriasCorrelativas;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            listSeleccionarMateriasCorrelativas.DataSource = seleccionMateriasCorrelativas;
         }
 
 
@@ -254,39 +306,56 @@ namespace Sigedu_UTN
 
         private void btnAsignarMateria_Click(object sender, EventArgs e)
         {
-            //Buscamos el profesor y la materia que fueron seleccionados
-            Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
-            Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaProfesor.Text);
-            
-            //Asigno la materia en la DB
-            ConnectionDao.AsignarProfesorAMateria(profesorSeleccionado.Id, materiaSeleccionada.Id);
-            MessageBox.Show($"El profesor {profesorSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
+            try
+            {
+                //Buscamos el profesor y la materia que fueron seleccionados
+                Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
+                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaProfesor.Text);
 
-            cmbSeleccionarProfesor.Text = "";
-            cmbSeleccionarMateriaProfesor.Text = "";
+                //Asigno la materia en la DB
+                ConnectionDao.AsignarProfesorAMateria(profesorSeleccionado.Id, materiaSeleccionada.Id);
+                MessageBox.Show($"El profesor {profesorSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
+
+                cmbSeleccionarProfesor.Text = "";
+                cmbSeleccionarMateriaProfesor.Text = "";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private BindingList<string> ListarMateriasDisponiblesParaProfesor()
         {
-            Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
-
-            //Obtengo el listado completo de materias
-            List<string> materias = new List<string>();
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-            
-            //Descarto las materias que actualmente esta dictando
-            BindingList<string> materiasActualesDelProfesor = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorSeleccionado.Id);
-            foreach(string materia in materiasActualesDelProfesor)
+            BindingList<string> listadoMateriasDisponibles = new BindingList<string>();
+            try
             {
-                materias.Remove(materia);
+                Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
+
+                //Obtengo el listado completo de materias
+                List<string> materias = new List<string>();
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
+
+                //Descarto las materias que actualmente esta dictando
+                BindingList<string> materiasActualesDelProfesor = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorSeleccionado.Id);
+                foreach (string materia in materiasActualesDelProfesor)
+                {
+                    materias.Remove(materia);
+                }
+
+
+                //Con el listado filtrado creo una BindingList y la retorno
+                listadoMateriasDisponibles = new BindingList<string>(materias);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-
-            //Con el listado filtrado creo una BindingList y la retorno
-            BindingList<string> listadoMateriasDisponibles = new BindingList<string>(materias);
 
             return listadoMateriasDisponibles;
         }
@@ -294,10 +363,16 @@ namespace Sigedu_UTN
 
         private void cmbSeleccionarProfesor_TextChanged(object sender, EventArgs e)
         {
-            
-            materiasDisponiblesParaProfesor = ListarMateriasDisponiblesParaProfesor();
-            cmbSeleccionarMateriaProfesor.DataSource = materiasDisponiblesParaProfesor;
-            
+            try
+            {
+                materiasDisponiblesParaProfesor = ListarMateriasDisponiblesParaProfesor();
+                cmbSeleccionarMateriaProfesor.DataSource = materiasDisponiblesParaProfesor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+ 
         }
 
 
@@ -307,73 +382,84 @@ namespace Sigedu_UTN
 
         private void cmbSeleccionarAlumnoAsignarMateria_TextChanged(object sender, EventArgs e)
         {
-
-            Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumnoAsignarMateria.Text);
-            Materia materiaSeleccionada;
-            BindingList<string> materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-            BindingList<string> materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-            bool todasCorrelativasAprobadas = true;
-
-            //Obtengo el listado completo de materias
-            List<string> materias = new List<string>();
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-            List<string> materiasHabilitadas = new List<string>();
-
-
-            foreach (string materia in materias)
+            try
             {
-                materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
-                List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
+                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumnoAsignarMateria.Text);
+                Materia materiaSeleccionada;
+                BindingList<string> materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoSeleccionado.Id);
+                BindingList<string> materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
+                bool todasCorrelativasAprobadas = true;
 
-                foreach (string materiaCorrelativa in listaMateriasCorrelativas)
+                //Obtengo el listado completo de materias
+                List<string> materias = new List<string>();
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
+                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
+                List<string> materiasHabilitadas = new List<string>();
+
+
+                foreach (string materia in materias)
                 {
-                    if (!materiasAprobadas.Contains(materiaCorrelativa))
+                    materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
+                    List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
+
+                    foreach (string materiaCorrelativa in listaMateriasCorrelativas)
                     {
-                        todasCorrelativasAprobadas = false;
-                        break;
+                        if (!materiasAprobadas.Contains(materiaCorrelativa))
+                        {
+                            todasCorrelativasAprobadas = false;
+                            break;
+                        }
+                    }
+                    if (todasCorrelativasAprobadas == true)
+                    {
+                        materiasHabilitadas.Add(materia);
                     }
                 }
-                if (todasCorrelativasAprobadas == true)
+
+
+                //Filtro las que ya tiene aprobadas o está cursando actualmente
+                foreach (string materia in materiasAprobadas)
                 {
-                    materiasHabilitadas.Add(materia);
+                    materiasHabilitadas.Remove(materia);
+                }
+                foreach (string materia in materiasCursando)
+                {
+                    materiasHabilitadas.Remove(materia);
                 }
 
-
+                materiasHabilitadasParaAlumno = new BindingList<string>(materiasHabilitadas);
+                cmbSeleccionarMateriaAlumno.DataSource = materiasHabilitadasParaAlumno;
             }
-
-
-            //Filtro las que ya tiene aprobadas o está cursando actualmente
-            foreach (string materia in materiasAprobadas)
+            catch (Exception ex)
             {
-                materiasHabilitadas.Remove(materia);
-            }
-            foreach (string materia in materiasCursando)
-            {
-                materiasHabilitadas.Remove(materia);
+                MessageBox.Show(ex.Message);
             }
 
-            materiasHabilitadasParaAlumno = new BindingList<string>(materiasHabilitadas);
-            cmbSeleccionarMateriaAlumno.DataSource = materiasHabilitadasParaAlumno;
         }
 
 
 
         private void btnAsignarMAteriaAlumno_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //Buscamos el alumno y la materia que fueron seleccionados
+                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
+                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaAlumno.Text);
 
-            //Buscamos el alumno y la materia que fueron seleccionados
-            Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
-            Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaAlumno.Text);
+                //Asigno la materia en la DB
+                ConnectionDao.AsignarAlumnoAMateria(alumnoSeleccionado.Id, materiaSeleccionada.Id);
+                MessageBox.Show($"El alumno {alumnoSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
 
-            //Asigno la materia en la DB
-            ConnectionDao.AsignarAlumnoAMateria(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-            MessageBox.Show($"El alumno {alumnoSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
-
-            cmbSeleccionarAlumnoAsignarMateria.Text = "";
-            cmbSeleccionarMateriaAlumno.Text = "";
+                cmbSeleccionarAlumnoAsignarMateria.Text = "";
+                cmbSeleccionarMateriaAlumno.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -381,31 +467,35 @@ namespace Sigedu_UTN
 
         private void btnExportarDatos_Click(object sender, EventArgs e)
         {
-            Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateriaExport.Text);
-            List<Alumno> listadoAlumnos = ConnectionDao.ObtenerListadoDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
-            int formatoSeleccionado = SeleccionarFormatoExport();
-            if(formatoSeleccionado == 1) //-----> Se exporta un archivo CSV
+            try
             {
-                
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateriaExport.Text);
+                List<Alumno> listadoAlumnos = ConnectionDao.ObtenerListadoDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
+                int formatoSeleccionado = SeleccionarFormatoExport();
+                if (formatoSeleccionado == 1) //-----> Se exporta un archivo CSV
                 {
-                    Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".txt");
-                    file.GuardarArchivoCSV(listadoAlumnos);
-                }
 
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".txt");
+                        file.GuardarArchivoCSV(listadoAlumnos);
+                    }
+
+                }
+                else if (formatoSeleccionado == 2) //-----> Se exporta un archivo JSON
+                {
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".json");
+                        file.GuardarArchivoJSON(listadoAlumnos);
+                    }
+                }
             }
-            else if(formatoSeleccionado == 2) //-----> Se exporta un archivo JSON
+            catch (Exception ex)
             {
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".json");
-                    file.GuardarArchivoJSON(listadoAlumnos);
-                }
+                MessageBox.Show(ex.Message);
             }
-
-
-
 
         }
 

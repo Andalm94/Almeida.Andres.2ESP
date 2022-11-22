@@ -54,7 +54,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la creacion de un nuevo usuario");
             }
             finally
             {
@@ -88,7 +88,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la creacion de una nueva materia");
             }
             finally
             {
@@ -124,7 +124,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la carga de materias correlativas");
             }
             finally
             {
@@ -157,7 +157,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la creacion de un nuevo examen");
             }
             finally
             {
@@ -194,7 +194,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en carga de datos de acceso");
             }
             finally
             {
@@ -237,7 +237,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error");
             }
             finally
             {
@@ -271,7 +271,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion del estado de la materia");
             }
             finally
             {
@@ -313,7 +313,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de profesor");
             }
             finally
             {
@@ -349,7 +349,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de profesor");
             }
             finally
             {
@@ -385,7 +385,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de alumno");
             }
             finally
             {
@@ -421,7 +421,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de alumno");
             }
             finally
             {
@@ -457,7 +457,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de materia");
             }
             finally
             {
@@ -476,7 +476,7 @@ namespace Biblioteca_de_clases
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = "SELECT ID, NOMBRE, FECHA, NOTA, ID_MATERIA " +
+                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA " +
                     "FROM EXAMENES  " +
                     "WHERE[NOMBRE] = @nombre;";
                 command.Parameters.AddWithValue("@nombre", nombre);
@@ -487,13 +487,13 @@ namespace Biblioteca_de_clases
 
                 while (reader.Read())
                 {
-                    examen = new Examen(int.Parse(reader["ID"].ToString()), reader["NOTA"].ToString(), reader["FECHA"].ToString(), float.Parse(reader["NOTA"].ToString()), int.Parse(reader["ID"].ToString()));
+                    examen = new Examen(int.Parse(reader["ID"].ToString()), reader["NOMBRE"].ToString(), reader["FECHA"].ToString(), int.Parse(reader["ID"].ToString()));
 
                 }
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la busqueda de examen");
             }
             finally
             {
@@ -530,7 +530,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de nombres de alumnos");
             }
             finally
             {
@@ -561,7 +561,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de nombres de profesores");
             }
             finally
             {
@@ -598,7 +598,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de materias correlativas");
             }
             finally
             {
@@ -633,7 +633,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de materias por cuatrimestre");
             }
             finally
             {
@@ -674,7 +674,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de materias de profesor");
             }
             finally
             {
@@ -716,7 +716,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de materias cursando de alumno");
             }
             finally
             {
@@ -758,7 +758,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de materias aprobadas de alumno");
             }
             finally
             {
@@ -798,7 +798,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de examenes de materia seleccionada");
             }
             finally
             {
@@ -840,7 +840,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de nombres de alumnos que cursan la materia seleccionada");
             }
             finally
             {
@@ -886,7 +886,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la obtencion de listado de alumnos que cursan la materia seleccionada");
             }
             finally
             {
@@ -901,14 +901,24 @@ namespace Biblioteca_de_clases
         }
         public static BindingList<string> ListarMateriasTotales()
         {
-            List<string> list = new List<string>();
-
-            list.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-            list.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-            list.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-            list.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-
-            return new BindingList<string>(list);
+            List<string> listadoMaterias = new List<string>();
+            BindingList<string> list;
+            try
+            {
+                listadoMaterias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+                listadoMaterias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+                listadoMaterias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
+                listadoMaterias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la obtencion de listado de alumnos que cursan la materia seleccionada");
+            }
+            finally
+            {
+                list = new BindingList<string>(listadoMaterias);
+            }
+            return list;
         }
 
 
@@ -936,7 +946,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en el cambio de estado de la materia seleccionada");
             }
             finally
             {
@@ -967,7 +977,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la asignacion del profesor a la materia");
             }
             finally
             {
@@ -997,7 +1007,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la asignacion del alumno a la materia");
             }
             finally
             {
@@ -1028,7 +1038,7 @@ namespace Biblioteca_de_clases
             }
             catch (Exception)
             {
-
+                throw new Exception("Ha habido un error en la carga de nota al alumno");
             }
             finally
             {

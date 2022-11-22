@@ -42,54 +42,55 @@ namespace Sigedu_UTN
         private BindingList<string> ListarMateriasHabilitadas(BindingList<string> materiasAprobadas, BindingList<string> listaMateriasCursando)
         {
             BindingList<string> materiasHabilitadas = new BindingList<string>();
-            bool todasCorrelativasAprobadas = true;
-            Materia materiaSeleccionada = new Materia();
             
-
-            //Obtengo el listado completo de materias
-            List<string> materias = new List<string>();
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-            materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-
-
-
-
-            foreach(string materia in materias)
+            try
             {
-                materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
-                List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
+                bool todasCorrelativasAprobadas = true;
+                Materia materiaSeleccionada = new Materia();
 
-                foreach(string materiaCorrelativa in listaMateriasCorrelativas)
+
+                //Obtengo el listado completo de materias
+                List<string> materias = new List<string>(ConnectionDao.ListarMateriasTotales());
+
+
+                foreach (string materia in materias)
                 {
-                    if (!materiasAprobadas.Contains(materiaCorrelativa))
+                    materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
+                    List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
+
+                    foreach (string materiaCorrelativa in listaMateriasCorrelativas)
                     {
-                        todasCorrelativasAprobadas = false;
-                        break;
+                        if (!materiasAprobadas.Contains(materiaCorrelativa))
+                        {
+                            todasCorrelativasAprobadas = false;
+                            break;
+                        }
                     }
+                    if (todasCorrelativasAprobadas == true)
+                    {
+                        materiasHabilitadas.Add(materia);
+                    }
+
+
                 }
-                if (todasCorrelativasAprobadas == true)
+
+                //Elimino las materias que ya está cursando o que ya tiene aprobadas
+                foreach (string materiaAprobada in materiasAprobadas)
                 {
-                    materiasHabilitadas.Add(materia);
+                    materiasHabilitadas.Remove(materiaAprobada);
                 }
 
-               
+                foreach (string materiaCursando in materiasCursando)
+                {
+                    materiasHabilitadas.Remove(materiaCursando);
+                }
             }
-
-            //Elimino las materias que ya está cursando o que ya tiene aprobadas
-            foreach (string materiaAprobada in materiasAprobadas)
+            catch(Exception ex)
             {
-                materiasHabilitadas.Remove(materiaAprobada);
-            }
-
-            foreach (string materiaCursando in materiasCursando)
-            {
-                materiasHabilitadas.Remove(materiaCursando);
+                MessageBox.Show(ex.Message);
             }
 
             return materiasHabilitadas;
-
 
         }
 
@@ -97,29 +98,43 @@ namespace Sigedu_UTN
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string materiaSeleccionada = lstMateriasHabilitadas.Text;
-            if(materiaSeleccionada != "")
+            try
             {
+                string materiaSeleccionada = lstMateriasHabilitadas.Text;
+                if (materiaSeleccionada != "")
+                {
+                    Materia nuevaMateriaCursando = ConnectionDao.BuscarMateriaPorNombre(materiaSeleccionada);
+                    ConnectionDao.AsignarAlumnoAMateria(alumnoLogueado.Id, nuevaMateriaCursando.Id);
 
-                Materia nuevaMateriaCursando = ConnectionDao.BuscarMateriaPorNombre(materiaSeleccionada); 
-                ConnectionDao.AsignarAlumnoAMateria(alumnoLogueado.Id, nuevaMateriaCursando.Id); 
+                    RefrescarListados();
+                }
 
-                RefrescarListados();
             }
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //Actualiza las listas de materias cursando, aprobadas y habilitadas.
         private void RefrescarListados()
         {
-            materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoLogueado.Id);
-            materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
-            lstMateriasCursando.DataSource = materiasCursando;
-            lstMateriasAprobadas.DataSource = materiasAprobadas;
-            lstMateriasHabilitadas.DataSource = ListarMateriasHabilitadas(materiasAprobadas, materiasCursando);
+            try
+            {
+                materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoLogueado.Id);
+                materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
+                lstMateriasCursando.DataSource = materiasCursando;
+                lstMateriasAprobadas.DataSource = materiasAprobadas;
+                lstMateriasHabilitadas.DataSource = ListarMateriasHabilitadas(materiasAprobadas, materiasCursando);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
+
+
         private void btnVolver_Click(object sender, EventArgs e)
         {
             frmAlumno frmAlumno = new frmAlumno(alumnoLogueado.User);

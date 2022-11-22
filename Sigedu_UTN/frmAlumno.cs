@@ -19,9 +19,17 @@ namespace Sigedu_UTN
 
         public frmAlumno(string user)
         {
-            InitializeComponent();
-            alumnoLogueado = ConnectionDao.BuscarAlumnoPorUser(user);
-            this.materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
+            try
+            {
+                InitializeComponent();
+                alumnoLogueado = ConnectionDao.BuscarAlumnoPorUser(user);
+                this.materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoLogueado.Id);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void frmAlumno_Load(object sender, EventArgs e)
@@ -33,9 +41,17 @@ namespace Sigedu_UTN
 
         private void btnMaterias_Click(object sender, EventArgs e)
         {
-            frmInscripcionMaterias frmInscripcionMaterias = new frmInscripcionMaterias(alumnoLogueado);
-            frmInscripcionMaterias.Show();
-            this.Hide();
+            try
+            {
+                frmInscripcionMaterias frmInscripcionMaterias = new frmInscripcionMaterias(alumnoLogueado);
+                frmInscripcionMaterias.Show();
+                this.Hide();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnDarAsistencia_Click(object sender, EventArgs e)

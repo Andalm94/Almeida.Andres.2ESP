@@ -11,19 +11,17 @@ namespace Biblioteca_de_clases
         private int id;
         private string nombre;
         private string fecha;
-        private float nota;
         private int idMateria;
 
-        public Examen(int id, string nombre, string fecha, float nota, int idMateria)
+        public Examen(int id, string nombre, string fecha, int idMateria)
         {
             this.id = id;
             this.nombre = nombre;
             this.fecha = fecha;
-            this.nota = nota;
             this.idMateria = idMateria;
         }
 
-        public Examen() : this(-1, "", "", 0, -1)
+        public Examen() : this(-1, "", "", -1)
         {
 
         }
@@ -44,12 +42,6 @@ namespace Biblioteca_de_clases
         {
             get { return fecha; }
             set { fecha = value; }
-        }
-
-        public float Nota
-        {
-            get { return nota; }
-            set { nota = value; }
         }
 
         public int IdMateria
