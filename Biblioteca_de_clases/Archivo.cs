@@ -30,10 +30,10 @@ namespace Biblioteca_de_clases
                 foreach(T item in listado)
                 {
 
+                    sw.Write(item.Id + ",");
                     sw.Write(item.Nombre + ",");
-                    sw.Write(item.User + ",");
                     sw.Write(item.Email + ",");
-                    sw.Write(item.Telefono + ",");
+                    sw.Write(item.Password + ",");
                     sw.Write("\n");
                 }
 

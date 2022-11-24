@@ -37,14 +37,10 @@
             this.radNewProfesor = new System.Windows.Forms.RadioButton();
             this.radNewAdmin = new System.Windows.Forms.RadioButton();
             this.txtNewUserMail = new System.Windows.Forms.TextBox();
-            this.txtNewUserTel = new System.Windows.Forms.TextBox();
             this.txtNewUserPass = new System.Windows.Forms.TextBox();
-            this.txtNewUser = new System.Windows.Forms.TextBox();
             this.txtNewUserName = new System.Windows.Forms.TextBox();
             this.lblNuevoUserEmail = new System.Windows.Forms.Label();
-            this.lblNuevoUserTel = new System.Windows.Forms.Label();
             this.lblNuevoUserPass = new System.Windows.Forms.Label();
-            this.lblNuevoUsuario = new System.Windows.Forms.Label();
             this.lblNuevoUserNombre = new System.Windows.Forms.Label();
             this.tabCambioEstadoMateria = new System.Windows.Forms.TabPage();
             this.lblEstadoMateria = new System.Windows.Forms.Label();
@@ -149,14 +145,10 @@
             this.tabNuevosUsuarios.Controls.Add(this.btnCreateUser);
             this.tabNuevosUsuarios.Controls.Add(this.grpUserType);
             this.tabNuevosUsuarios.Controls.Add(this.txtNewUserMail);
-            this.tabNuevosUsuarios.Controls.Add(this.txtNewUserTel);
             this.tabNuevosUsuarios.Controls.Add(this.txtNewUserPass);
-            this.tabNuevosUsuarios.Controls.Add(this.txtNewUser);
             this.tabNuevosUsuarios.Controls.Add(this.txtNewUserName);
             this.tabNuevosUsuarios.Controls.Add(this.lblNuevoUserEmail);
-            this.tabNuevosUsuarios.Controls.Add(this.lblNuevoUserTel);
             this.tabNuevosUsuarios.Controls.Add(this.lblNuevoUserPass);
-            this.tabNuevosUsuarios.Controls.Add(this.lblNuevoUsuario);
             this.tabNuevosUsuarios.Controls.Add(this.lblNuevoUserNombre);
             this.tabNuevosUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabNuevosUsuarios.Location = new System.Drawing.Point(4, 24);
@@ -170,9 +162,9 @@
             // btnCreateUser
             // 
             this.btnCreateUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnCreateUser.Location = new System.Drawing.Point(389, 166);
+            this.btnCreateUser.Location = new System.Drawing.Point(261, 223);
             this.btnCreateUser.Name = "btnCreateUser";
-            this.btnCreateUser.Size = new System.Drawing.Size(66, 95);
+            this.btnCreateUser.Size = new System.Drawing.Size(192, 52);
             this.btnCreateUser.TabIndex = 11;
             this.btnCreateUser.Text = "Crear usuario";
             this.btnCreateUser.UseVisualStyleBackColor = true;
@@ -184,9 +176,9 @@
             this.grpUserType.Controls.Add(this.radNewProfesor);
             this.grpUserType.Controls.Add(this.radNewAdmin);
             this.grpUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grpUserType.Location = new System.Drawing.Point(260, 158);
+            this.grpUserType.Location = new System.Drawing.Point(261, 25);
             this.grpUserType.Name = "grpUserType";
-            this.grpUserType.Size = new System.Drawing.Size(123, 104);
+            this.grpUserType.Size = new System.Drawing.Size(194, 150);
             this.grpUserType.TabIndex = 21;
             this.grpUserType.TabStop = false;
             this.grpUserType.Text = "Tipo de usuario";
@@ -230,84 +222,50 @@
             // 
             // txtNewUserMail
             // 
-            this.txtNewUserMail.Location = new System.Drawing.Point(7, 236);
+            this.txtNewUserMail.Location = new System.Drawing.Point(6, 99);
             this.txtNewUserMail.Name = "txtNewUserMail";
-            this.txtNewUserMail.Size = new System.Drawing.Size(186, 22);
+            this.txtNewUserMail.Size = new System.Drawing.Size(194, 22);
             this.txtNewUserMail.TabIndex = 20;
-            // 
-            // txtNewUserTel
-            // 
-            this.txtNewUserTel.Location = new System.Drawing.Point(7, 178);
-            this.txtNewUserTel.Name = "txtNewUserTel";
-            this.txtNewUserTel.Size = new System.Drawing.Size(186, 22);
-            this.txtNewUserTel.TabIndex = 19;
             // 
             // txtNewUserPass
             // 
-            this.txtNewUserPass.Location = new System.Drawing.Point(260, 35);
+            this.txtNewUserPass.Location = new System.Drawing.Point(6, 153);
             this.txtNewUserPass.Name = "txtNewUserPass";
             this.txtNewUserPass.Size = new System.Drawing.Size(195, 22);
             this.txtNewUserPass.TabIndex = 18;
             // 
-            // txtNewUser
-            // 
-            this.txtNewUser.Location = new System.Drawing.Point(7, 35);
-            this.txtNewUser.Name = "txtNewUser";
-            this.txtNewUser.Size = new System.Drawing.Size(186, 22);
-            this.txtNewUser.TabIndex = 17;
-            // 
             // txtNewUserName
             // 
-            this.txtNewUserName.Location = new System.Drawing.Point(7, 108);
+            this.txtNewUserName.Location = new System.Drawing.Point(6, 45);
             this.txtNewUserName.Name = "txtNewUserName";
-            this.txtNewUserName.Size = new System.Drawing.Size(186, 22);
+            this.txtNewUserName.Size = new System.Drawing.Size(194, 22);
             this.txtNewUserName.TabIndex = 15;
             // 
             // lblNuevoUserEmail
             // 
             this.lblNuevoUserEmail.AutoSize = true;
             this.lblNuevoUserEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNuevoUserEmail.Location = new System.Drawing.Point(7, 216);
+            this.lblNuevoUserEmail.Location = new System.Drawing.Point(6, 79);
             this.lblNuevoUserEmail.Name = "lblNuevoUserEmail";
             this.lblNuevoUserEmail.Size = new System.Drawing.Size(41, 16);
             this.lblNuevoUserEmail.TabIndex = 14;
             this.lblNuevoUserEmail.Text = "Email";
             // 
-            // lblNuevoUserTel
-            // 
-            this.lblNuevoUserTel.AutoSize = true;
-            this.lblNuevoUserTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNuevoUserTel.Location = new System.Drawing.Point(7, 158);
-            this.lblNuevoUserTel.Name = "lblNuevoUserTel";
-            this.lblNuevoUserTel.Size = new System.Drawing.Size(61, 16);
-            this.lblNuevoUserTel.TabIndex = 13;
-            this.lblNuevoUserTel.Text = "Telefono";
-            // 
             // lblNuevoUserPass
             // 
             this.lblNuevoUserPass.AutoSize = true;
             this.lblNuevoUserPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNuevoUserPass.Location = new System.Drawing.Point(260, 15);
+            this.lblNuevoUserPass.Location = new System.Drawing.Point(6, 133);
             this.lblNuevoUserPass.Name = "lblNuevoUserPass";
             this.lblNuevoUserPass.Size = new System.Drawing.Size(76, 16);
             this.lblNuevoUserPass.TabIndex = 12;
             this.lblNuevoUserPass.Text = "Contraseña";
             // 
-            // lblNuevoUsuario
-            // 
-            this.lblNuevoUsuario.AutoSize = true;
-            this.lblNuevoUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNuevoUsuario.Location = new System.Drawing.Point(6, 15);
-            this.lblNuevoUsuario.Name = "lblNuevoUsuario";
-            this.lblNuevoUsuario.Size = new System.Drawing.Size(54, 16);
-            this.lblNuevoUsuario.TabIndex = 11;
-            this.lblNuevoUsuario.Text = "Usuario";
-            // 
             // lblNuevoUserNombre
             // 
             this.lblNuevoUserNombre.AutoSize = true;
             this.lblNuevoUserNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNuevoUserNombre.Location = new System.Drawing.Point(7, 88);
+            this.lblNuevoUserNombre.Location = new System.Drawing.Point(6, 25);
             this.lblNuevoUserNombre.Name = "lblNuevoUserNombre";
             this.lblNuevoUserNombre.Size = new System.Drawing.Size(118, 16);
             this.lblNuevoUserNombre.TabIndex = 9;
@@ -642,7 +600,6 @@
             this.cmbSeleccionarAlumnoAsignarMateria.Size = new System.Drawing.Size(200, 23);
             this.cmbSeleccionarAlumnoAsignarMateria.TabIndex = 19;
             this.cmbSeleccionarAlumnoAsignarMateria.Text = " ";
-            this.cmbSeleccionarAlumnoAsignarMateria.TextChanged += new System.EventHandler(this.cmbSeleccionarAlumnoAsignarMateria_TextChanged);
             // 
             // cmbSeleccionarMateriaAlumno
             // 
@@ -717,7 +674,6 @@
             this.cmbSeleccionarProfesor.Size = new System.Drawing.Size(200, 23);
             this.cmbSeleccionarProfesor.TabIndex = 13;
             this.cmbSeleccionarProfesor.Text = " ";
-            this.cmbSeleccionarProfesor.TextChanged += new System.EventHandler(this.cmbSeleccionarProfesor_TextChanged);
             // 
             // cmbSeleccionarMateriaProfesor
             // 
@@ -1018,7 +974,6 @@
             this.Name = "frmAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin";
-            this.Load += new System.EventHandler(this.frmAdmin_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabNuevosUsuarios.ResumeLayout(false);
             this.tabNuevosUsuarios.PerformLayout();
@@ -1067,14 +1022,10 @@
         private Label label2;
         private TabPage tabAsignarMaterias;
         private TextBox txtNewUserPass;
-        private TextBox txtNewUser;
         private TextBox txtNewUserName;
         private Label lblNuevoUserEmail;
-        private Label lblNuevoUserTel;
         private Label lblNuevoUserPass;
-        private Label lblNuevoUsuario;
         private TextBox txtNewUserMail;
-        private TextBox txtNewUserTel;
         private GroupBox grpUserType;
         private RadioButton radNewAlumno;
         private RadioButton radNewProfesor;

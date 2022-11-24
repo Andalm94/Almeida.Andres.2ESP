@@ -31,11 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProfesor));
             this.listMaterias = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtMail = new System.Windows.Forms.TextBox();
-            this.btnEditarDatos = new System.Windows.Forms.Button();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblTel = new System.Windows.Forms.Label();
+            this.txtMail = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.imgAvatar = new System.Windows.Forms.PictureBox();
             this.grpCrearExamen = new System.Windows.Forms.GroupBox();
@@ -65,8 +61,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pnlRight = new System.Windows.Forms.Panel();
-            this.lblDatoMail = new System.Windows.Forms.Label();
-            this.lblDatoTelefono = new System.Windows.Forms.Label();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.picSalir = new System.Windows.Forms.PictureBox();
@@ -109,62 +103,15 @@
             // 
             // txtMail
             // 
-            this.txtMail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtMail.Location = new System.Drawing.Point(14, 295);
+            this.txtMail.AutoEllipsis = true;
+            this.txtMail.AutoSize = true;
+            this.txtMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
+            this.txtMail.Location = new System.Drawing.Point(12, 245);
             this.txtMail.Name = "txtMail";
-            this.txtMail.PlaceholderText = "Ingrese su email";
-            this.txtMail.Size = new System.Drawing.Size(144, 23);
-            this.txtMail.TabIndex = 8;
-            this.txtMail.Visible = false;
-            // 
-            // btnEditarDatos
-            // 
-            this.btnEditarDatos.FlatAppearance.BorderSize = 0;
-            this.btnEditarDatos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(155)))), ((int)(((byte)(219)))));
-            this.btnEditarDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.btnEditarDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.btnEditarDatos.Location = new System.Drawing.Point(2, 339);
-            this.btnEditarDatos.Name = "btnEditarDatos";
-            this.btnEditarDatos.Size = new System.Drawing.Size(168, 36);
-            this.btnEditarDatos.TabIndex = 7;
-            this.btnEditarDatos.Text = "Editar datos";
-            this.btnEditarDatos.UseVisualStyleBackColor = true;
-            this.btnEditarDatos.Click += new System.EventHandler(this.btnEditarDatos_Click);
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTelefono.Location = new System.Drawing.Point(14, 235);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.PlaceholderText = "Ingrese su telefono";
-            this.txtTelefono.Size = new System.Drawing.Size(144, 23);
-            this.txtTelefono.TabIndex = 5;
-            this.txtTelefono.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoEllipsis = true;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.label5.Location = new System.Drawing.Point(14, 276);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Mail";
-            // 
-            // lblTel
-            // 
-            this.lblTel.AutoEllipsis = true;
-            this.lblTel.AutoSize = true;
-            this.lblTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.lblTel.Location = new System.Drawing.Point(14, 216);
-            this.lblTel.Name = "lblTel";
-            this.lblTel.Size = new System.Drawing.Size(69, 16);
-            this.lblTel.TabIndex = 2;
-            this.lblTel.Text = "Teléfono";
+            this.txtMail.Size = new System.Drawing.Size(36, 16);
+            this.txtMail.TabIndex = 3;
+            this.txtMail.Text = "Mail";
             // 
             // lblNombre
             // 
@@ -172,7 +119,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.lblNombre.Location = new System.Drawing.Point(12, 177);
+            this.lblNombre.Location = new System.Drawing.Point(12, 188);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(66, 16);
             this.lblNombre.TabIndex = 1;
@@ -441,7 +388,6 @@
             this.cmbExamenes.Name = "cmbExamenes";
             this.cmbExamenes.Size = new System.Drawing.Size(136, 23);
             this.cmbExamenes.TabIndex = 9;
-            this.cmbExamenes.TextChanged += new System.EventHandler(this.cmbExamenes_TextChanged);
             // 
             // btnExit
             // 
@@ -495,47 +441,17 @@
             // pnlRight
             // 
             this.pnlRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(66)))));
-            this.pnlRight.Controls.Add(this.txtMail);
-            this.pnlRight.Controls.Add(this.txtTelefono);
-            this.pnlRight.Controls.Add(this.lblDatoMail);
-            this.pnlRight.Controls.Add(this.lblDatoTelefono);
             this.pnlRight.Controls.Add(this.label7);
             this.pnlRight.Controls.Add(this.btnExit);
-            this.pnlRight.Controls.Add(this.btnEditarDatos);
             this.pnlRight.Controls.Add(this.imgAvatar);
             this.pnlRight.Controls.Add(this.lblNombre);
-            this.pnlRight.Controls.Add(this.label5);
-            this.pnlRight.Controls.Add(this.lblTel);
+            this.pnlRight.Controls.Add(this.txtMail);
             this.pnlRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.pnlRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(110)))), ((int)(((byte)(63)))));
             this.pnlRight.Location = new System.Drawing.Point(392, 30);
             this.pnlRight.Name = "pnlRight";
             this.pnlRight.Size = new System.Drawing.Size(170, 453);
             this.pnlRight.TabIndex = 7;
-            // 
-            // lblDatoMail
-            // 
-            this.lblDatoMail.AutoEllipsis = true;
-            this.lblDatoMail.AutoSize = true;
-            this.lblDatoMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDatoMail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.lblDatoMail.Location = new System.Drawing.Point(14, 297);
-            this.lblDatoMail.Name = "lblDatoMail";
-            this.lblDatoMail.Size = new System.Drawing.Size(47, 16);
-            this.lblDatoMail.TabIndex = 11;
-            this.lblDatoMail.Text = "----------";
-            // 
-            // lblDatoTelefono
-            // 
-            this.lblDatoTelefono.AutoEllipsis = true;
-            this.lblDatoTelefono.AutoSize = true;
-            this.lblDatoTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDatoTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(184)))), ((int)(((byte)(16)))));
-            this.lblDatoTelefono.Location = new System.Drawing.Point(14, 237);
-            this.lblDatoTelefono.Name = "lblDatoTelefono";
-            this.lblDatoTelefono.Size = new System.Drawing.Size(47, 16);
-            this.lblDatoTelefono.TabIndex = 10;
-            this.lblDatoTelefono.Text = "----------";
             // 
             // pnlLeft
             // 
@@ -620,7 +536,6 @@
         private ListBox listMaterias;
         private GroupBox grpCrearExamen;
         private Button btnCalificar;
-        private Label lblTel;
         private Label lblNombre;
         private PictureBox imgAvatar;
         private GroupBox grpCorregirExamen;
@@ -637,10 +552,7 @@
         private Label label6;
         private NumericUpDown numNota;
         public ComboBox cmbAlumnosEvaluados;
-        private Label label5;
-        private Button btnEditarDatos;
-        private TextBox txtTelefono;
-        private TextBox txtMail;
+        private Label txtMail;
         private Label label7;
         private Label lblUltimoCalificado;
         private Label lblUltimaNota;
@@ -655,8 +567,6 @@
         private Label label9;
         private Button btnCrearExamen;
         private PictureBox picSalir;
-        private Label lblDatoMail;
-        private Label lblDatoTelefono;
         private Label lblSeleccionarMateriaCorregirExamen;
         public ComboBox cmbMateria;
     }

@@ -32,7 +32,7 @@
             this.lblSigedu = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.lblUser = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
             this.lblPass = new System.Windows.Forms.Label();
             this.btnProfesor = new System.Windows.Forms.Button();
             this.btnAlumno = new System.Windows.Forms.Button();
@@ -80,15 +80,15 @@
             this.txtPassword.Size = new System.Drawing.Size(254, 23);
             this.txtPassword.TabIndex = 4;
             // 
-            // lblUser
+            // lblEmail
             // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblUser.Location = new System.Drawing.Point(40, 54);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(64, 20);
-            this.lblUser.TabIndex = 5;
-            this.lblUser.Text = "Usuario";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblEmail.Location = new System.Drawing.Point(40, 54);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(48, 20);
+            this.lblEmail.TabIndex = 5;
+            this.lblEmail.Text = "Email";
             // 
             // lblPass
             // 
@@ -173,7 +173,7 @@
             // pnlRight
             // 
             this.pnlRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
-            this.pnlRight.Controls.Add(this.lblUser);
+            this.pnlRight.Controls.Add(this.lblEmail);
             this.pnlRight.Controls.Add(this.txtUser);
             this.pnlRight.Controls.Add(this.lblPass);
             this.pnlRight.Controls.Add(this.txtPassword);
@@ -292,7 +292,7 @@
         private Label lblSigedu;
         private TextBox txtUser;
         private TextBox txtPassword;
-        private Label lblUser;
+        private Label lblEmail;
         private Label lblPass;
         private Button btnProfesor;
         private Button btnAlumno;

@@ -10,10 +10,10 @@ namespace Biblioteca_de_clases
     {
         private int id;
         private string nombre;
-        private string fecha;
+        private DateTime fecha;
         private int idMateria;
 
-        public Examen(int id, string nombre, string fecha, int idMateria)
+        public Examen(int id, string nombre, DateTime fecha, int idMateria)
         {
             this.id = id;
             this.nombre = nombre;
@@ -21,7 +21,7 @@ namespace Biblioteca_de_clases
             this.idMateria = idMateria;
         }
 
-        public Examen() : this(-1, "", "", -1)
+        public Examen() : this(-1, "", new DateTime(), -1)
         {
 
         }
@@ -38,7 +38,7 @@ namespace Biblioteca_de_clases
             set { nombre = value; }
         }
 
-        public string Fecha
+        public DateTime Fecha
         {
             get { return fecha; }
             set { fecha = value; }

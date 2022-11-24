@@ -8,38 +8,32 @@ namespace Biblioteca_de_clases
         private int id;
         private int tipoUsuario;
         private string nombre;
-        private string user;
-        private string password;
-        private string telefono;
         private string email;
+        private string password;
 
 
-        //=================================== CONSTRUCTOR ======================================================
-        public usuarioUTN() : this(-1, "", "")
+
+        //=================================== CONSTRUCTORES ======================================================
+
+        public usuarioUTN(int id, int tipoUsuario, string nombre, string email, string password)
         {
-
-        }
-
-        public usuarioUTN(int tipoUsuario, string name, string user, string password) : this(tipoUsuario, user, password)
-        {
-            this.nombre = name;
-        }
-
-        public usuarioUTN(int tipoUsuario, string user, string password)
-        {
+            this.id = id;
             this.tipoUsuario = tipoUsuario;
-            this.user = user;
+            this.nombre = nombre;
+            this.email = email;
             this.password = password;
         }
 
-        public usuarioUTN(int id, int tipoUsuario, string user, string pass)
+        public usuarioUTN(int tipoUsuario, string nombre, string email, string password) : this(-1, tipoUsuario, nombre, email, password)
         {
-            this.Id = id;
-            this.TipoUsuario = tipoUsuario;
-            this.User = user;
-            this.Password = pass;
 
         }
+
+        public usuarioUTN() : this(-1, "", "", "")
+        {
+
+        }
+
 
 
         //=================================== PROPIEDADES ======================================================
@@ -62,10 +56,10 @@ namespace Biblioteca_de_clases
             set { this.nombre = value; }
         }
 
-        public string User
+        public string Email
         {
-            get { return this.user; }
-            set { this.user = value; }  
+            get { return this.email; }
+            set { this.email = value; }
         }
 
         public string Password
@@ -74,16 +68,8 @@ namespace Biblioteca_de_clases
             set { this.password = value; }
         }
 
-        public string Telefono
-        {
-            get { return this.telefono; }
-            set { this.telefono = value; }
-        }
-        public string Email
-        {
-            get { return this.email; }
-            set { this.email = value; }
-        }
+
+
 
     }
 }

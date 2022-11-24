@@ -33,7 +33,6 @@ D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\ne
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.csproj.AssemblyReference.cache
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.frmAdmin.resources
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.frmAlumno.resources
-D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.frmInscripcionMaterias.resources
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.frmLogin.resources
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.frmProfesor.resources
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\obj\Debug\net6.0-windows\Sigedu_UTN.Properties.Resources.resources

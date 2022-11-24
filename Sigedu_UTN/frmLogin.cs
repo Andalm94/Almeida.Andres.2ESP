@@ -21,15 +21,15 @@ namespace Sigedu_UTN
             {
                 //Se recibe el usuario y contraseña ingresados.
                 //Se buscan los datos del usuario ingresado
-                string usuarioIngresado = txtUser.Text;
+                string emailIngresado = txtUser.Text;
                 string passIngresada = txtPassword.Text;
-                usuarioUTN usuarioLogueado = ConnectionDao.ObtenerDatosAccesoUsuario(usuarioIngresado);
+                usuarioUTN usuarioLogueado = ConnectionDao.ObtenerDatosAccesoUsuario(emailIngresado);
 
 
 
                 //Se valida que la contraseña ingresada corresponda al usuario ingresado
                 //Devuelve el tipo de usuario logueado: (0:Admin | 1:Profesor | 2:Alumno)
-                int tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, usuarioIngresado, passIngresada);
+                int tipoDeUsuarioLogueado = ValidarUsuario(usuarioLogueado, emailIngresado, passIngresada);
 
                 if (tipoDeUsuarioLogueado != -1)
                 {
@@ -41,12 +41,12 @@ namespace Sigedu_UTN
                             this.Hide();
                             break;
                         case 1:
-                            frmProfesor frmProfesor = new frmProfesor(usuarioIngresado);
+                            frmProfesor frmProfesor = new frmProfesor(usuarioLogueado.Id);
                             frmProfesor.Show();
                             this.Hide();
                             break;
                         case 2:
-                            frmAlumno frmAlumno = new frmAlumno(usuarioIngresado);
+                            frmAlumno frmAlumno = new frmAlumno(usuarioLogueado.Id);
                             frmAlumno.Show();
                             this.Hide();
                             break;
@@ -75,11 +75,11 @@ namespace Sigedu_UTN
         /// <param name="user">Input del usuario</param>
         /// <param name="pass">Input del usuario</param>
         /// <returns>Devuelve el tipo de usuario logueado (0:Admin | 1:Profesor | 2:Alumno)</returns>
-        private int ValidarUsuario(usuarioUTN usuarioLogueado, string user, string pass)
+        private int ValidarUsuario(usuarioUTN usuarioLogueado, string email, string pass)
         {
             int respuesta = -1;
 
-            if(usuarioLogueado.User == user && usuarioLogueado.Password == pass)
+            if(usuarioLogueado.Email == email && usuarioLogueado.Password == pass)
             {
                 respuesta = usuarioLogueado.TipoUsuario;
             }
@@ -97,19 +97,19 @@ namespace Sigedu_UTN
         private void btnAdmin_Click(object sender, EventArgs e)
         {
 
-            txtUser.Text = "admin";
+            txtUser.Text = "admin@utnfra.com";
             txtPassword.Text = "admin";
         }
 
         private void btnProfesor_Click(object sender, EventArgs e)
         {
-            txtUser.Text = "mrampi";
+            txtUser.Text = "mrampi@utnfra.com";
             txtPassword.Text = "mrampi";
         }
 
         private void btnAlumno_Click(object sender, EventArgs e)
         {
-            txtUser.Text = "aalmeida";
+            txtUser.Text = "aalmeida@utnfra.com";
             txtPassword.Text = "aalmeida";
         }
 
@@ -150,6 +150,11 @@ namespace Sigedu_UTN
         private void pnlTop_MouseUp(object sender, MouseEventArgs e)
         {
             mouse = 0;
+        }
+
+        private void lblUser_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

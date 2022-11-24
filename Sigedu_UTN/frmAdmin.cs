@@ -17,11 +17,13 @@ namespace Sigedu_UTN
     public partial class frmAdmin : Form
     {
 
-        BindingList<string> listadoAlumnosTotales;
-        BindingList<string> materiasDeAlumnoSeleccionado;
+        Admin adminLogueado;
 
-       
-        BindingList<string> listadoProfesoresTotales;
+        List<Alumno> listadoAlumnosTotales;
+        List<Profesor> listadoProfesoresTotales;
+        List<Materia> listadoMateriasTotales;
+
+        BindingList<string> materiasDeAlumnoSeleccionado;
         BindingList<string> materiasDisponiblesParaProfesor;
         BindingList<string> materiasHabilitadasParaAlumno;
 
@@ -29,70 +31,82 @@ namespace Sigedu_UTN
         private SaveFileDialog saveFileDialog;
 
 
-        //El constructor inicializa los listados que recibe de la DB
         public frmAdmin()
         {
-            
             InitializeComponent();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
             try
             {
-                listadoAlumnosTotales = ConnectionDao.ObtenerNombresAlumnos();
-                listadoProfesoresTotales = ConnectionDao.ObtenerNombresProfesores();
-                cmbMateriaExport.DataSource = ConnectionDao.ListarMateriasTotales();
+                adminLogueado = new Admin();
+                listadoAlumnosTotales = ConnectionDao.ObtenerListadoDeAlumnos();
+                listadoProfesoresTotales = ConnectionDao.ObtenerListadoDeProfesores();
+                listadoMateriasTotales = ConnectionDao.ObtenerListadoDeMaterias();
+
+                //List: Crear nueva Materia
+                listSeleccionarMateriasCorrelativas.ValueMember = "id";
+                listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+
+
+                //Comboboxes: Asignar profesor a materia
+                cmbSeleccionarProfesor.ValueMember = "id";
+                cmbSeleccionarProfesor.DisplayMember = "nombre";
+                cmbSeleccionarProfesor.DataSource = listadoProfesoresTotales;
+                cmbSeleccionarMateriaProfesor.ValueMember = "id";
+                cmbSeleccionarMateriaProfesor.DisplayMember = "nombre";
+                cmbSeleccionarMateriaProfesor.DataSource = listadoMateriasTotales;
+
+
+                //Comboboxes: Asignar alumno a materia
+                cmbSeleccionarMateriaAlumno.ValueMember = "id";
+                cmbSeleccionarMateriaAlumno.DisplayMember = "nombre";
+                cmbSeleccionarMateriaAlumno.DataSource = listadoMateriasTotales;
+                cmbSeleccionarAlumnoAsignarMateria.ValueMember = "id";
+                cmbSeleccionarAlumnoAsignarMateria.DisplayMember = "nombre";
+                cmbSeleccionarAlumnoAsignarMateria.DataSource = listadoAlumnosTotales;
+
+
+                //Comboboxes: Exportar datos
+                cmbMateriaExport.ValueMember = "id";
+                cmbMateriaExport.DisplayMember = "nombre";
+                cmbMateriaExport.DataSource = listadoMateriasTotales;
+
+                //Comboboxes: Cambiar estado de materia
+                //cmbSeleccionarAlumno.DataSource = listadoAlumnosTotales;
+                cmbSeleccionarAlumno.ValueMember = "id";
+                cmbSeleccionarAlumno.DisplayMember = "nombre";
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-            materiasDeAlumnoSeleccionado = new BindingList<string>();
-            materiasDisponiblesParaProfesor = new BindingList<string>();
-            materiasHabilitadasParaAlumno = new BindingList<string>();
-
         }
-
-        private void frmAdmin_Load(object sender, EventArgs e)
-        {
-
-            cmbSeleccionarAlumno.DataSource = listadoAlumnosTotales;
-            cmbSeleccionarProfesor.DataSource = listadoProfesoresTotales;
-
-            cmbSeleccionarAlumnoAsignarMateria.DataSource = listadoAlumnosTotales;
-            cmbSeleccionarMateriaAlumno.DataSource = materiasHabilitadasParaAlumno;
-
-        }
-
 
 
 
 
         //===================================== CREAR NUEVO USUARIO ==================================================
         private void btnCreateUser_Click(object sender, EventArgs e)
-        {
-            string userNuevoUsuario = txtNewUser.Text;
-            string passNuevoUsuario = txtNewUserPass.Text;
-            string nombreNuevoUsuario = txtNewUserName.Text;
-            string telefonoNuevoUsuario = txtNewUserTel.Text;
-            string emailNuevoUsuario = txtNewUserMail.Text;
-            int tipoUsuario = codificarTipoUsuario();
+        {  
             try
             {
-                ConnectionDao.CrearNuevoUsuario(tipoUsuario, userNuevoUsuario, passNuevoUsuario, nombreNuevoUsuario, telefonoNuevoUsuario, emailNuevoUsuario);
+                int tipoUsuario = codificarTipoUsuario();
+                string nombreNuevoUsuario = txtNewUserName.Text;
+                string emailNuevoUsuario = txtNewUserMail.Text;
+                string passNuevoUsuario = txtNewUserPass.Text;
+                adminLogueado.CrearNuevoUsuario(tipoUsuario, nombreNuevoUsuario, emailNuevoUsuario, passNuevoUsuario);
+
+                txtNewUserName.Text = "";
+                txtNewUserMail.Text = "";
+                txtNewUserPass.Text = "";
+                MessageBox.Show("Usuario creado exitosamente");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-            
-            MessageBox.Show("Usuario creado exitosamente");
-            txtNewUser.Text = "";
-            txtNewUserPass.Text = "";
-            txtNewUserName.Text = "";
-            txtNewUserTel.Text = "";
-            txtNewUserMail.Text = "";
         }
 
         private int codificarTipoUsuario()
@@ -127,29 +141,20 @@ namespace Sigedu_UTN
         {
             try
             {
-                //Recibimos los inputs del usuario
-                string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
-                string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
+                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
+                int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaAlumno.SelectedValue.ToString());
+                int nuevoEstado = adminLogueado.CambiarEstadoMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
 
 
-                //Buscamos al alumno y la materia seleccionada. Luego obtengo el ID de su relacion y su estado
-                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
-                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
-                int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
-
-
-                //Alternamos el estado de esa materia
-                if (estadoMateria == 1)
+                //Modificamos la interfaz del usuario en funcion del nuevo estado de la materia
+                if (nuevoEstado == 1)
                 {
-                    ConnectionDao.CambiarEstadoMateria(idRelacion, 0);
                     picEstadoMateria.BackColor = Color.IndianRed;
                     lblEstadoMateria.Text = "Libre";
                     lblEstadoMateria.BackColor = Color.IndianRed;
                 }
-                else if (estadoMateria == 0)
+                else if (nuevoEstado == 0)
                 {
-                    ConnectionDao.CambiarEstadoMateria(idRelacion, 1);
                     picEstadoMateria.BackColor = Color.YellowGreen;
                     lblEstadoMateria.Text = "Regular";
                     lblEstadoMateria.BackColor = Color.YellowGreen;
@@ -162,21 +167,15 @@ namespace Sigedu_UTN
 
 
         }
-
+       
         private void cmbMateriasAlumnoSeleccionado_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 //Recibimos los inputs del usuario
-                string nombreAlumnoSeleccionado = cmbSeleccionarAlumno.Text;
-                string nombreMateriaSeleccionada = cmbMateriasAlumnoSeleccionado.Text;
-
-                //Buscamos al alumno seleccionado
-                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(nombreAlumnoSeleccionado);
-                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(nombreMateriaSeleccionada);
-                int idRelacion = ConnectionDao.SeleccionarIDMateriasAlumnosCursando(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idRelacion);
-
+                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
+                int idMateriaSeleccionada = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
+                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
 
 
                 if (estadoMateria == 1)
@@ -203,10 +202,9 @@ namespace Sigedu_UTN
         {
             try
             {
-                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
-
-                materiasDeAlumnoSeleccionado = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-                cmbMateriasAlumnoSeleccionado.DataSource = materiasDeAlumnoSeleccionado;
+                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
+                BindingList<Materia> materiasAlumnoSeleccionado = new BindingList<Materia>(ConnectionDao.ObtenerListadoDeMateriasCursandoDelAlumno(idAlumnoSeleccionado));
+                cmbMateriasAlumnoSeleccionado.DataSource = materiasAlumnoSeleccionado;
             }
             catch(Exception ex)
             {
@@ -228,17 +226,20 @@ namespace Sigedu_UTN
                 //Recibimos los datos cargados y lo cargamos a la DB
                 string nombreNuevaMateria = txtNuevaMateria.Text;
                 int cuatrimestre = TomarCuatrimestreDeNuevaMateria();
-                List<string> materiasCorrelativasSeleccionadas = recibirMateriasCorrelativasIngresadas();
-                ConnectionDao.CrearNuevaMateria(nombreNuevaMateria, cuatrimestre);
+                List<int> materiasCorrelativasSeleccionadas = recibirIdsMateriasCorrelativasIngresadas();
 
-                //Buscamos la materia recien creada para obtener su ID
-                //Le cargamos las materias correlativas seleccionadas
-                Materia nuevaMateria = ConnectionDao.BuscarMateriaPorNombre(nombreNuevaMateria);
-                ConnectionDao.CargarMateriasCorrelativas(nuevaMateria.Id, materiasCorrelativasSeleccionadas);
-
-
-                MessageBox.Show($"Se ha cargado exitosamente la siguiente materia: \n\n Nombre: {nombreNuevaMateria}" +
+                if(adminLogueado.CrearNuevaMateria(nombreNuevaMateria, cuatrimestre, materiasCorrelativasSeleccionadas))
+                {
+                    MessageBox.Show($"Se ha cargado exitosamente la siguiente materia: \n\n Nombre: {nombreNuevaMateria}" +
                     $"\n Cuatrimestre: {cuatrimestre}");
+                }
+                else
+                {
+                    MessageBox.Show("Ha habido un error en la creacion de la nueva materia");
+                }
+
+
+
             }
             catch(Exception ex)
             {
@@ -270,16 +271,14 @@ namespace Sigedu_UTN
         }
 
 
-        private List<string> recibirMateriasCorrelativasIngresadas()
+        private List<int> recibirIdsMateriasCorrelativasIngresadas()
         {
-            List<string> materiasCorrelativas = new List<string>();
-            var variable = listSeleccionarMateriasCorrelativas.SelectedItems;
-
-            foreach (string materia in variable)
+            List<int> materiasCorrelativas = new List<int>();
+            var itemSeleccionados = listSeleccionarMateriasCorrelativas.SelectedItems;
+            foreach (int item in itemSeleccionados)
             {
-                materiasCorrelativas.Add(materia);
+                materiasCorrelativas.Add(item);
             }
-
             return materiasCorrelativas;
         }
 
@@ -287,8 +286,11 @@ namespace Sigedu_UTN
         {
             try
             {
-                BindingList<string> seleccionMateriasCorrelativas = ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(int.Parse(cmbCuatriSeleccionado.Text));
-                listSeleccionarMateriasCorrelativas.DataSource = seleccionMateriasCorrelativas;
+                List<Materia> materiasDelCuatriSeleccionado = ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(int.Parse(cmbCuatriSeleccionado.Text));
+                listSeleccionarMateriasCorrelativas.ValueMember = "id";
+                listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+                listSeleccionarMateriasCorrelativas.DataSource = new BindingList<Materia>(materiasDelCuatriSeleccionado);
+
             }
             catch(Exception ex)
             {
@@ -308,14 +310,14 @@ namespace Sigedu_UTN
         {
             try
             {
-                //Buscamos el profesor y la materia que fueron seleccionados
-                Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
-                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaProfesor.Text);
+                int idProfesorSeleccionado = int.Parse(cmbSeleccionarProfesor.SelectedValue.ToString());
+                int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaProfesor.SelectedValue.ToString());
 
-                //Asigno la materia en la DB
-                ConnectionDao.AsignarProfesorAMateria(profesorSeleccionado.Id, materiaSeleccionada.Id);
-                MessageBox.Show($"El profesor {profesorSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
-
+                if (!adminLogueado.AsignarProfesorAMateria(idProfesorSeleccionado, idMateriaSeleccionada))
+                {
+                    MessageBox.Show("El profesor ya tiene asignada la materia seleccionada");
+                }
+                
                 cmbSeleccionarProfesor.Text = "";
                 cmbSeleccionarMateriaProfesor.Text = "";
             }
@@ -326,132 +328,34 @@ namespace Sigedu_UTN
 
         }
 
-        private BindingList<string> ListarMateriasDisponiblesParaProfesor()
-        {
-            BindingList<string> listadoMateriasDisponibles = new BindingList<string>();
-            try
-            {
-                Profesor profesorSeleccionado = ConnectionDao.BuscarProfesorPorNombre(cmbSeleccionarProfesor.Text);
-
-                //Obtengo el listado completo de materias
-                List<string> materias = new List<string>();
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-
-                //Descarto las materias que actualmente esta dictando
-                BindingList<string> materiasActualesDelProfesor = ConnectionDao.ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(profesorSeleccionado.Id);
-                foreach (string materia in materiasActualesDelProfesor)
-                {
-                    materias.Remove(materia);
-                }
-
-
-                //Con el listado filtrado creo una BindingList y la retorno
-                listadoMateriasDisponibles = new BindingList<string>(materias);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-            return listadoMateriasDisponibles;
-        }
-
-
-        private void cmbSeleccionarProfesor_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                materiasDisponiblesParaProfesor = ListarMateriasDisponiblesParaProfesor();
-                cmbSeleccionarMateriaProfesor.DataSource = materiasDisponiblesParaProfesor;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
- 
-        }
-
 
 
         //===================================== INSCRIBIR ALUMNO A MATERIA ==================================================
-
-
-        private void cmbSeleccionarAlumnoAsignarMateria_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumnoAsignarMateria.Text);
-                Materia materiaSeleccionada;
-                BindingList<string> materiasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-                BindingList<string> materiasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDeAlumnoSeleccionado(alumnoSeleccionado.Id);
-                bool todasCorrelativasAprobadas = true;
-
-                //Obtengo el listado completo de materias
-                List<string> materias = new List<string>();
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
-                materias.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(4));
-                List<string> materiasHabilitadas = new List<string>();
-
-
-                foreach (string materia in materias)
-                {
-                    materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(materia);
-                    List<string> listaMateriasCorrelativas = new List<string>(ConnectionDao.BuscarMateriasCorrelativasDeMateria(materiaSeleccionada.Id));
-
-                    foreach (string materiaCorrelativa in listaMateriasCorrelativas)
-                    {
-                        if (!materiasAprobadas.Contains(materiaCorrelativa))
-                        {
-                            todasCorrelativasAprobadas = false;
-                            break;
-                        }
-                    }
-                    if (todasCorrelativasAprobadas == true)
-                    {
-                        materiasHabilitadas.Add(materia);
-                    }
-                }
-
-
-                //Filtro las que ya tiene aprobadas o está cursando actualmente
-                foreach (string materia in materiasAprobadas)
-                {
-                    materiasHabilitadas.Remove(materia);
-                }
-                foreach (string materia in materiasCursando)
-                {
-                    materiasHabilitadas.Remove(materia);
-                }
-
-                materiasHabilitadasParaAlumno = new BindingList<string>(materiasHabilitadas);
-                cmbSeleccionarMateriaAlumno.DataSource = materiasHabilitadasParaAlumno;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
 
 
         private void btnAsignarMAteriaAlumno_Click(object sender, EventArgs e)
         {
             try
             {
-                //Buscamos el alumno y la materia que fueron seleccionados
-                Alumno alumnoSeleccionado = ConnectionDao.BuscarAlumnoPorNombre(cmbSeleccionarAlumno.Text);
-                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbSeleccionarMateriaAlumno.Text);
+                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumnoAsignarMateria.SelectedValue.ToString());
+                int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaAlumno.SelectedValue.ToString());
+                int respuesta = adminLogueado.AsignarAlumnoAMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
+                switch (respuesta)
+                {
+                    case -3:
+                        MessageBox.Show("El alumno no posee todas las materias correlativas aprobadas.");
+                        break;
+                    case -2:
+                        MessageBox.Show("El alumno ya tiene aprobada la materia.");
+                        break;
+                    case -1:
+                        MessageBox.Show("El alumno se encuentra cursando la materia.");
+                        break;
+                    case 1:
+                        MessageBox.Show("El alumno ha sido asignado a la materia satisfactoriamente.");
+                        break;
 
-                //Asigno la materia en la DB
-                ConnectionDao.AsignarAlumnoAMateria(alumnoSeleccionado.Id, materiaSeleccionada.Id);
-                MessageBox.Show($"El alumno {alumnoSeleccionado.Nombre} ha sido asignado a la materia {materiaSeleccionada.Nombre}");
+                }
 
                 cmbSeleccionarAlumnoAsignarMateria.Text = "";
                 cmbSeleccionarMateriaAlumno.Text = "";
@@ -463,33 +367,25 @@ namespace Sigedu_UTN
         }
 
 
-
+        //============================================= EXPORT DATOS ========================================================
 
         private void btnExportarDatos_Click(object sender, EventArgs e)
         {
             try
             {
-                Materia materiaSeleccionada = ConnectionDao.BuscarMateriaPorNombre(cmbMateriaExport.Text);
-                List<Alumno> listadoAlumnos = ConnectionDao.ObtenerListadoDeAlumnosQueCursanLaMateria(materiaSeleccionada.Id);
+                int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaAlumno.SelectedValue.ToString());
                 int formatoSeleccionado = SeleccionarFormatoExport();
-                if (formatoSeleccionado == 1) //-----> Se exporta un archivo CSV
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    if(adminLogueado.ExportarDatos(formatoSeleccionado, saveFileDialog.FileName, idMateriaSeleccionada))
                     {
-                        Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".txt");
-                        file.GuardarArchivoCSV(listadoAlumnos);
+                        MessageBox.Show("Datos exportados correctamente");
                     }
-
-                }
-                else if (formatoSeleccionado == 2) //-----> Se exporta un archivo JSON
-                {
-
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    else
                     {
-                        Archivo<Alumno> file = new Archivo<Alumno>(saveFileDialog.FileName + ".json");
-                        file.GuardarArchivoJSON(listadoAlumnos);
+                        MessageBox.Show("Ha habido un error en la exportacion de datos.");
                     }
+ 
                 }
             }
             catch (Exception ex)
@@ -498,7 +394,6 @@ namespace Sigedu_UTN
             }
 
         }
-
 
         private int SeleccionarFormatoExport()
         {
@@ -560,17 +455,14 @@ namespace Sigedu_UTN
             if (radNewAdmin.Checked == true)
             {
                 txtNewUserName.Text = "";
-                txtNewUserTel.Text = "";
                 txtNewUserMail.Text = "";
                 txtNewUserName.ReadOnly = true;
-                txtNewUserTel.ReadOnly = true;
                 txtNewUserMail.ReadOnly = true;
 
             }
             else
             {
                 txtNewUserName.ReadOnly = false;
-                txtNewUserTel.ReadOnly = false;
                 txtNewUserMail.ReadOnly = false;
             }
         }
@@ -579,7 +471,6 @@ namespace Sigedu_UTN
         {
             Application.Exit();
         }
-
 
 
     }
