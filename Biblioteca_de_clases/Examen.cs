@@ -12,16 +12,18 @@ namespace Biblioteca_de_clases
         private string nombre;
         private DateTime fecha;
         private int idMateria;
+        private int corregido;
 
-        public Examen(int id, string nombre, DateTime fecha, int idMateria)
+        public Examen(int id, string nombre, DateTime fecha, int idMateria, int corregido)
         {
             this.id = id;
             this.nombre = nombre;
             this.fecha = fecha;
             this.idMateria = idMateria;
+            this.corregido = corregido;
         }
 
-        public Examen() : this(-1, "", new DateTime(), -1)
+        public Examen() : this(-1, "", new DateTime(), -1, 0)
         {
 
         }

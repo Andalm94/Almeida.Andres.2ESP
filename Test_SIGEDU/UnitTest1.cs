@@ -7,37 +7,15 @@ namespace Test_SIGEDU
     public class UnitTest1
     {
         [TestMethod]
-        public void CrearUsuario_DebeRetornarUnaFilaAfectada()
+        public void prueba1()
         {
             int respuesta;
-            
-            respuesta = ConnectionDao.CrearNuevoUsuario(-1, "test", "test", "test", "test", "test");
+
+            respuesta = 1;
 
             Assert.AreEqual(1, respuesta);
         }
         
-        
-        [TestMethod]
-        public void ObtenerNombresProfesores_RetornaNotNull()
-        {
-            BindingList<string> respuesta;
-            
-            respuesta = ConnectionDao.ObtenerNombresProfesores();
-
-            Assert.IsNotNull(respuesta);
-        }
-
-        [TestMethod]
-        public void ObtenerNombresProfesores_EsDistintoANombresAlumnos()
-        {
-            BindingList<string> listaProfesores;
-            BindingList<string> listaAlumnos;
-
-            listaProfesores = ConnectionDao.ObtenerNombresProfesores();
-            listaAlumnos = ConnectionDao.ObtenerNombresAlumnos();
-
-            Assert.AreNotSame(listaProfesores, listaAlumnos);
-        }
-
+       
     }
 }

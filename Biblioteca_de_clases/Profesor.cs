@@ -56,11 +56,88 @@ namespace Biblioteca_de_clases
             return 1;
         }
         
-        public int AsignarNotaAlumno(int idMateria, int idAlumno, float nota)
+        public int AsignarNotasAAlumnos(int idMateria, int idExamen, List<int> idAlumnos, List<float>notas)
         {
-            int success = 0;
+            int success = 1;
+
+            //Se valida que las notas ingresadas esten en rango correcto (1-10)
+            //Se valida que la cantidad de alumnos recibido sea igual a la cantidad de notas
+            //Se asigna la nota a cada alumno
+            //Se marca el examen como corregido
+            if(ValidarNotasEnRango(notas) != 1)
+            {
+                success = -3;
+            }
+            else
+            {
+                if (ConnectionDao.ObtenerEstadoExamen(idExamen) != 0)
+                {
+                    success = -2;
+                }
+                else
+                {
+                    if (idAlumnos.Count != notas.Count)
+                    {
+                        success = -1;
+                    }
+                    else
+                    {
+
+                        //Se carga la nota
+                        for (int i = 0; i < idAlumnos.Count; i++)
+                        {
+                            ConnectionDao.CargarNotaAAlumno(idAlumnos[i], idMateria, notas[i]);
 
 
+                            //Se valida si el alumno tiene las notas cargadas y puede aprobar la materia.
+                            //Si la validacion es true, se marca la materia como aprobada y se elimina como materia cursando
+                            if (ValidarAprobarMateriaAlumno(idAlumnos[i], idMateria) == 0)
+                            {
+                                ConnectionDao.EliminarMateriaCursandoAlumno(idAlumnos[i], idMateria);
+                            }
+
+                        }
+                        success = 0;
+                        ConnectionDao.MarcarExamenCorregido(idExamen);
+                    }
+                }
+            }
+
+            
+
+            return success;
+        }
+    
+
+
+        public int ValidarAprobarMateriaAlumno(int idAlumno, int idMateria)
+        {
+            int success = -1;
+            List<float> notas = ConnectionDao.ObtenerNotasDeMateriaDeAlumno(idAlumno, idMateria);
+            float promedio = notas.Sum() / notas.Count();
+
+            if (notas.Count >= 2 && promedio >= 6)
+            {
+                promedio = (float)(Math.Truncate((double)promedio * 100.0) / 100.0); //Se redondea a 2 decimales
+                ConnectionDao.AprobarMateriaAlumno(idAlumno, idMateria, notas[0], notas[1], promedio);
+                success = 0;
+            }
+
+            return success;
+        }
+
+        public int ValidarNotasEnRango(List<float> listadoNotas)
+        {
+            int success = 1;
+
+            foreach (float nota in listadoNotas)
+            {
+                if (nota < 1 || nota > 10)
+                {
+                    success = -1;
+                    break;
+                }
+            }
             return success;
         }
     }

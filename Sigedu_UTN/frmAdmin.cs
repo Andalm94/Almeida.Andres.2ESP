@@ -23,9 +23,6 @@ namespace Sigedu_UTN
         List<Profesor> listadoProfesoresTotales;
         List<Materia> listadoMateriasTotales;
 
-        BindingList<string> materiasDeAlumnoSeleccionado;
-        BindingList<string> materiasDisponiblesParaProfesor;
-        BindingList<string> materiasHabilitadasParaAlumno;
 
         private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
@@ -46,7 +43,6 @@ namespace Sigedu_UTN
                 //List: Crear nueva Materia
                 listSeleccionarMateriasCorrelativas.ValueMember = "id";
                 listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
-
 
                 //Comboboxes: Asignar profesor a materia
                 cmbSeleccionarProfesor.ValueMember = "id";
@@ -75,6 +71,10 @@ namespace Sigedu_UTN
                 //cmbSeleccionarAlumno.DataSource = listadoAlumnosTotales;
                 cmbSeleccionarAlumno.ValueMember = "id";
                 cmbSeleccionarAlumno.DisplayMember = "nombre";
+                cmbSeleccionarAlumno.DataSource = listadoAlumnosTotales;
+                cmbMateriasAlumnoSeleccionado.ValueMember = "id";
+                cmbMateriasAlumnoSeleccionado.DisplayMember = "nombre";
+                cmbMateriasAlumnoSeleccionado.DataSource = listadoMateriasTotales;
             }
             catch(Exception ex)
             {
@@ -142,23 +142,12 @@ namespace Sigedu_UTN
             try
             {
                 int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
-                int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaAlumno.SelectedValue.ToString());
+                int idMateriaSeleccionada = int.Parse(cmbMateriasAlumnoSeleccionado.SelectedValue.ToString());
                 int nuevoEstado = adminLogueado.CambiarEstadoMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
 
 
                 //Modificamos la interfaz del usuario en funcion del nuevo estado de la materia
-                if (nuevoEstado == 1)
-                {
-                    picEstadoMateria.BackColor = Color.IndianRed;
-                    lblEstadoMateria.Text = "Libre";
-                    lblEstadoMateria.BackColor = Color.IndianRed;
-                }
-                else if (nuevoEstado == 0)
-                {
-                    picEstadoMateria.BackColor = Color.YellowGreen;
-                    lblEstadoMateria.Text = "Regular";
-                    lblEstadoMateria.BackColor = Color.YellowGreen;
-                }
+                SetCartelEstadoMateria(nuevoEstado);
             }
             catch (Exception ex)
             {
@@ -167,56 +156,33 @@ namespace Sigedu_UTN
 
 
         }
-       
+
         private void cmbMateriasAlumnoSeleccionado_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                //Recibimos los inputs del usuario
-                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
-                int idMateriaSeleccionada = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
-                int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
+            //Recibimos los inputs del usuario
+            int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
 
+            int idMateriaSeleccionada = int.Parse(cmbMateriasAlumnoSeleccionado.SelectedValue.ToString());
+            int estadoMateria = ConnectionDao.ObtenerEstadoMateria(idAlumnoSeleccionado, idMateriaSeleccionada);
 
-                if (estadoMateria == 1)
-                {
-                    picEstadoMateria.BackColor = Color.YellowGreen;
-                    lblEstadoMateria.Text = "Regular";
-                    lblEstadoMateria.BackColor = Color.YellowGreen;
-                }
-                else if (estadoMateria == 0)
-                {
-                    picEstadoMateria.BackColor = Color.IndianRed;
-                    lblEstadoMateria.Text = "Libre";
-                    lblEstadoMateria.BackColor = Color.IndianRed;
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+            SetCartelEstadoMateria(estadoMateria);
         }
 
-        private void cmbSeleccionarAlumno_TextChanged(object sender, EventArgs e)
+        private void SetCartelEstadoMateria(int estadoMateria)
         {
-            try
+            if (estadoMateria == 1)
             {
-                int idAlumnoSeleccionado = int.Parse(cmbSeleccionarAlumno.SelectedValue.ToString());
-                BindingList<Materia> materiasAlumnoSeleccionado = new BindingList<Materia>(ConnectionDao.ObtenerListadoDeMateriasCursandoDelAlumno(idAlumnoSeleccionado));
-                cmbMateriasAlumnoSeleccionado.DataSource = materiasAlumnoSeleccionado;
+                picEstadoMateria.BackColor = Color.YellowGreen;
+                lblEstadoMateria.Text = "Regular";
+                lblEstadoMateria.BackColor = Color.YellowGreen;
             }
-            catch(Exception ex)
+            else if (estadoMateria == 0)
             {
-                MessageBox.Show(ex.Message);
+                picEstadoMateria.BackColor = Color.IndianRed;
+                lblEstadoMateria.Text = "Libre";
+                lblEstadoMateria.BackColor = Color.IndianRed;
             }
-
         }
-
-
-
-
-
 
         //===================================== CREAR NUEVA MATERIA ==================================================
         private void btnCrearMateria_Click(object sender, EventArgs e)
@@ -274,38 +240,60 @@ namespace Sigedu_UTN
         private List<int> recibirIdsMateriasCorrelativasIngresadas()
         {
             List<int> materiasCorrelativas = new List<int>();
-            var itemSeleccionados = listSeleccionarMateriasCorrelativas.SelectedItems;
-            foreach (int item in itemSeleccionados)
+            int cantidadItemsSeleccionados = listSeleccionarMateriasCorrelativas.SelectedItems.Count;
+            int idMateriaSeleccionada;
+
+
+            foreach (Materia item in listSeleccionarMateriasCorrelativas.SelectedItems)
             {
-                materiasCorrelativas.Add(item);
+                materiasCorrelativas.Add(item.Id);
             }
+
             return materiasCorrelativas;
         }
 
-        private void cmbCuatriSeleccionado_SelectedIndexChanged(object sender, EventArgs e)
+        private void radCuatri1_CheckedChanged(object sender, EventArgs e)
         {
-            try
-            {
-                List<Materia> materiasDelCuatriSeleccionado = ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(int.Parse(cmbCuatriSeleccionado.Text));
-                listSeleccionarMateriasCorrelativas.ValueMember = "id";
-                listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
-                listSeleccionarMateriasCorrelativas.DataSource = new BindingList<Materia>(materiasDelCuatriSeleccionado);
+            List<Materia> materiasDelCuatriSeleccionado = new List<Materia>();
+            listSeleccionarMateriasCorrelativas.ValueMember = "id";
+            listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+            listSeleccionarMateriasCorrelativas.DataSource = materiasDelCuatriSeleccionado;
+        }
+        private void radCuatri2_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Materia> materiasDelCuatriSeleccionado = new List<Materia>();
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+            listSeleccionarMateriasCorrelativas.ValueMember = "id";
+            listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+            listSeleccionarMateriasCorrelativas.DataSource = materiasDelCuatriSeleccionado;
 
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        }
+        private void radCuatri3_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Materia> materiasDelCuatriSeleccionado = new List<Materia>();
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+            listSeleccionarMateriasCorrelativas.ValueMember = "id";
+            listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+            listSeleccionarMateriasCorrelativas.DataSource = materiasDelCuatriSeleccionado;
+        }
 
+        private void radCuatri4_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Materia> materiasDelCuatriSeleccionado = new List<Materia>();
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(1));
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(2));
+            materiasDelCuatriSeleccionado.AddRange(ConnectionDao.ObtenerListadoDeMateriasPorCuatrimestre(3));
+            listSeleccionarMateriasCorrelativas.ValueMember = "id";
+            listSeleccionarMateriasCorrelativas.DisplayMember = "nombre";
+            listSeleccionarMateriasCorrelativas.DataSource = materiasDelCuatriSeleccionado;
         }
 
 
 
+        //========================================= ASIGNAR MATERIA ======================================================
 
-        
-        
-        //===================================== ASIGNAR PROFESOR A MATERIA ==================================================
-
+        //Asignar materia a Profesor
         private void btnAsignarMateria_Click(object sender, EventArgs e)
         {
             try
@@ -313,7 +301,11 @@ namespace Sigedu_UTN
                 int idProfesorSeleccionado = int.Parse(cmbSeleccionarProfesor.SelectedValue.ToString());
                 int idMateriaSeleccionada = int.Parse(cmbSeleccionarMateriaProfesor.SelectedValue.ToString());
 
-                if (!adminLogueado.AsignarProfesorAMateria(idProfesorSeleccionado, idMateriaSeleccionada))
+                if (adminLogueado.AsignarProfesorAMateria(idProfesorSeleccionado, idMateriaSeleccionada))
+                {
+                    MessageBox.Show("El profesor ha sido asignado a la materia correctamente");
+                }
+                else
                 {
                     MessageBox.Show("El profesor ya tiene asignada la materia seleccionada");
                 }
@@ -329,10 +321,7 @@ namespace Sigedu_UTN
         }
 
 
-
-        //===================================== INSCRIBIR ALUMNO A MATERIA ==================================================
-
-
+        //Asignar materia a Alumno
         private void btnAsignarMAteriaAlumno_Click(object sender, EventArgs e)
         {
             try
@@ -366,6 +355,7 @@ namespace Sigedu_UTN
             }
         }
 
+        
 
         //============================================= EXPORT DATOS ========================================================
 
@@ -450,22 +440,6 @@ namespace Sigedu_UTN
             mouse = 0;
         }
 
-        private void radNewAdmin_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radNewAdmin.Checked == true)
-            {
-                txtNewUserName.Text = "";
-                txtNewUserMail.Text = "";
-                txtNewUserName.ReadOnly = true;
-                txtNewUserMail.ReadOnly = true;
-
-            }
-            else
-            {
-                txtNewUserName.ReadOnly = false;
-                txtNewUserMail.ReadOnly = false;
-            }
-        }
 
         private void picSalir_Click(object sender, EventArgs e)
         {

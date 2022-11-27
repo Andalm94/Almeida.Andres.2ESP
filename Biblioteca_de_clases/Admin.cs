@@ -140,7 +140,7 @@ namespace Biblioteca_de_clases
 
             //Validaciones pasadas satisfactoriamente
             ConnectionDao.AsignarAlumnoAMateria(idAlumno, idMateria);
-            return 0;
+            return 1;
         }
     
         public bool ExportarDatos(int formato, string path, int idMateria)

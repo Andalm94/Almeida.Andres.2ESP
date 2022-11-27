@@ -43,17 +43,9 @@
             this.lblFecha = new System.Windows.Forms.Label();
             this.btnCalificar = new System.Windows.Forms.Button();
             this.grpCorregirExamen = new System.Windows.Forms.GroupBox();
+            this.dtgvAlumnosEvaluados = new System.Windows.Forms.DataGridView();
             this.lblSeleccionarMateriaCorregirExamen = new System.Windows.Forms.Label();
             this.cmbMateria = new System.Windows.Forms.ComboBox();
-            this.lblUltimaNota = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblUltimoCalificado = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numNota = new System.Windows.Forms.NumericUpDown();
-            this.cmbAlumnosEvaluados = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblExamenFecha = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbExamenes = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
@@ -65,10 +57,13 @@
             this.pnlTop = new System.Windows.Forms.Panel();
             this.picSalir = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.ID_ALUMNO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alumno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.imgAvatar)).BeginInit();
             this.grpCrearExamen.SuspendLayout();
             this.grpCorregirExamen.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNota)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvAlumnosEvaluados)).BeginInit();
             this.tabOpciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -218,34 +213,38 @@
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.Size = new System.Drawing.Size(342, 48);
             this.btnCalificar.TabIndex = 2;
-            this.btnCalificar.Text = "Cargar nota";
+            this.btnCalificar.Text = "Finalizar carga";
             this.btnCalificar.UseVisualStyleBackColor = true;
             this.btnCalificar.Click += new System.EventHandler(this.btnCalificar_Click);
             // 
             // grpCorregirExamen
             // 
+            this.grpCorregirExamen.Controls.Add(this.dtgvAlumnosEvaluados);
             this.grpCorregirExamen.Controls.Add(this.lblSeleccionarMateriaCorregirExamen);
             this.grpCorregirExamen.Controls.Add(this.cmbMateria);
-            this.grpCorregirExamen.Controls.Add(this.lblUltimaNota);
-            this.grpCorregirExamen.Controls.Add(this.label8);
-            this.grpCorregirExamen.Controls.Add(this.label3);
-            this.grpCorregirExamen.Controls.Add(this.lblUltimoCalificado);
-            this.grpCorregirExamen.Controls.Add(this.label6);
-            this.grpCorregirExamen.Controls.Add(this.numNota);
-            this.grpCorregirExamen.Controls.Add(this.cmbAlumnosEvaluados);
-            this.grpCorregirExamen.Controls.Add(this.label4);
-            this.grpCorregirExamen.Controls.Add(this.lblExamenFecha);
             this.grpCorregirExamen.Controls.Add(this.label2);
             this.grpCorregirExamen.Controls.Add(this.btnCalificar);
             this.grpCorregirExamen.Controls.Add(this.cmbExamenes);
             this.grpCorregirExamen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.grpCorregirExamen.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.grpCorregirExamen.Location = new System.Drawing.Point(6, 6);
             this.grpCorregirExamen.Name = "grpCorregirExamen";
             this.grpCorregirExamen.Size = new System.Drawing.Size(363, 376);
             this.grpCorregirExamen.TabIndex = 4;
             this.grpCorregirExamen.TabStop = false;
             this.grpCorregirExamen.Text = "Corregir exámen";
+            // 
+            // dtgvAlumnosEvaluados
+            // 
+            this.dtgvAlumnosEvaluados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvAlumnosEvaluados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID_ALUMNO,
+            this.Alumno,
+            this.Nota});
+            this.dtgvAlumnosEvaluados.Location = new System.Drawing.Point(14, 119);
+            this.dtgvAlumnosEvaluados.Name = "dtgvAlumnosEvaluados";
+            this.dtgvAlumnosEvaluados.RowTemplate.Height = 25;
+            this.dtgvAlumnosEvaluados.Size = new System.Drawing.Size(339, 174);
+            this.dtgvAlumnosEvaluados.TabIndex = 29;
             // 
             // lblSeleccionarMateriaCorregirExamen
             // 
@@ -267,114 +266,11 @@
             this.cmbMateria.TabIndex = 27;
             this.cmbMateria.TextChanged += new System.EventHandler(this.cmbMateria_TextChanged);
             // 
-            // lblUltimaNota
-            // 
-            this.lblUltimaNota.AutoSize = true;
-            this.lblUltimaNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblUltimaNota.Location = new System.Drawing.Point(11, 202);
-            this.lblUltimaNota.Name = "lblUltimaNota";
-            this.lblUltimaNota.Size = new System.Drawing.Size(61, 16);
-            this.lblUltimaNota.TabIndex = 26;
-            this.lblUltimaNota.Text = "                  ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(7, 232);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(347, 15);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "--------------------------------------------------------------------";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(6, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(347, 15);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "--------------------------------------------------------------------";
-            // 
-            // lblUltimoCalificado
-            // 
-            this.lblUltimoCalificado.AutoSize = true;
-            this.lblUltimoCalificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblUltimoCalificado.Location = new System.Drawing.Point(11, 171);
-            this.lblUltimoCalificado.Name = "lblUltimoCalificado";
-            this.lblUltimoCalificado.Size = new System.Drawing.Size(61, 16);
-            this.lblUltimoCalificado.TabIndex = 23;
-            this.lblUltimoCalificado.Text = "                  ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(186, 285);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 15);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Calificacion:";
-            // 
-            // numNota
-            // 
-            this.numNota.DecimalPlaces = 1;
-            this.numNota.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numNota.Location = new System.Drawing.Point(277, 284);
-            this.numNota.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numNota.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numNota.Name = "numNota";
-            this.numNota.Size = new System.Drawing.Size(45, 23);
-            this.numNota.TabIndex = 3;
-            this.numNota.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // cmbAlumnosEvaluados
-            // 
-            this.cmbAlumnosEvaluados.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmbAlumnosEvaluados.FormattingEnabled = true;
-            this.cmbAlumnosEvaluados.Location = new System.Drawing.Point(11, 283);
-            this.cmbAlumnosEvaluados.Name = "cmbAlumnosEvaluados";
-            this.cmbAlumnosEvaluados.Size = new System.Drawing.Size(141, 23);
-            this.cmbAlumnosEvaluados.TabIndex = 18;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(11, 258);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 16);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Seleccione un alumno";
-            // 
-            // lblExamenFecha
-            // 
-            this.lblExamenFecha.AutoSize = true;
-            this.lblExamenFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblExamenFecha.Location = new System.Drawing.Point(11, 108);
-            this.lblExamenFecha.Name = "lblExamenFecha";
-            this.lblExamenFecha.Size = new System.Drawing.Size(48, 16);
-            this.lblExamenFecha.TabIndex = 14;
-            this.lblExamenFecha.Text = "Fecha:";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(189, 41);
+            this.label2.Location = new System.Drawing.Point(217, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 16);
             this.label2.TabIndex = 10;
@@ -384,7 +280,7 @@
             // 
             this.cmbExamenes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbExamenes.FormattingEnabled = true;
-            this.cmbExamenes.Location = new System.Drawing.Point(186, 67);
+            this.cmbExamenes.Location = new System.Drawing.Point(217, 67);
             this.cmbExamenes.Name = "cmbExamenes";
             this.cmbExamenes.Size = new System.Drawing.Size(136, 23);
             this.cmbExamenes.TabIndex = 9;
@@ -499,6 +395,27 @@
             this.label9.TabIndex = 1;
             this.label9.Text = "SIGEDU - Profesores";
             // 
+            // ID_ALUMNO
+            // 
+            this.ID_ALUMNO.Frozen = true;
+            this.ID_ALUMNO.HeaderText = "ID";
+            this.ID_ALUMNO.Name = "ID_ALUMNO";
+            this.ID_ALUMNO.Width = 25;
+            // 
+            // Alumno
+            // 
+            this.Alumno.Frozen = true;
+            this.Alumno.HeaderText = "Alumno";
+            this.Alumno.Name = "Alumno";
+            this.Alumno.ReadOnly = true;
+            this.Alumno.Width = 200;
+            // 
+            // Nota
+            // 
+            this.Nota.Frozen = true;
+            this.Nota.HeaderText = "Nota";
+            this.Nota.Name = "Nota";
+            // 
             // frmProfesor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -517,7 +434,7 @@
             this.grpCrearExamen.PerformLayout();
             this.grpCorregirExamen.ResumeLayout(false);
             this.grpCorregirExamen.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNota)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvAlumnosEvaluados)).EndInit();
             this.tabOpciones.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -546,18 +463,9 @@
         public ComboBox cmbExamenes;
         private TextBox txtNombreExamen;
         private Label label1;
-        private Label lblExamenFecha;
         private Label label2;
-        private Label label4;
-        private Label label6;
-        private NumericUpDown numNota;
-        public ComboBox cmbAlumnosEvaluados;
         private Label txtMail;
         private Label label7;
-        private Label lblUltimoCalificado;
-        private Label lblUltimaNota;
-        private Label label8;
-        private Label label3;
         private TabControl tabOpciones;
         private TabPage tabPage1;
         private TabPage tabPage2;
@@ -569,5 +477,9 @@
         private PictureBox picSalir;
         private Label lblSeleccionarMateriaCorregirExamen;
         public ComboBox cmbMateria;
+        private DataGridView dtgvAlumnosEvaluados;
+        private DataGridViewTextBoxColumn Alumno;
+        private DataGridViewTextBoxColumn Nota;
+        private DataGridViewTextBoxColumn ID_ALUMNO;
     }
 }

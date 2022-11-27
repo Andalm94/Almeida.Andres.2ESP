@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Biblioteca_de_clases
@@ -11,11 +12,11 @@ namespace Biblioteca_de_clases
 
     public class Alumno : usuarioUTN
     {
-
-        List<Materia> materiasAprobadas;
-        List<Materia> materiasCursando;
-        List<Materia> materiasHabilitadasParaInscripcion;
-
+        /*
+        [JsonIgnore] List<Materia> materiasAprobadas; 
+        [JsonIgnore] List<Materia> materiasCursando; 
+        [JsonIgnore] List<Materia> materiasHabilitadasParaInscripcion;
+        */
 
         //======================================================= CONSTRUCTORES =================================================================
 
@@ -36,6 +37,7 @@ namespace Biblioteca_de_clases
 
         //======================================================= PROPIEDADES =================================================================
 
+        /*
         public List<Materia> MateriasAprobadas
         {
             get { return materiasAprobadas; }
@@ -51,7 +53,7 @@ namespace Biblioteca_de_clases
             get { return materiasHabilitadasParaInscripcion; }
             set { materiasHabilitadasParaInscripcion = value; }
         }
-
+        */
 
         //======================================================= METODOS =================================================================
     

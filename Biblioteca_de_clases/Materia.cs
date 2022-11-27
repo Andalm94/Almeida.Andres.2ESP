@@ -14,6 +14,7 @@ namespace Biblioteca_de_clases
         int id;
         private string nombre;
         private int cuatrimestre;
+ 
 
 
         //=================================== CONSTRUCTORES =========================================
@@ -28,6 +29,7 @@ namespace Biblioteca_de_clases
             this.Id = id;
             this.Nombre = nombre;
             this.Cuatrimestre = cuatrimestre;
+
         }
 
         //=================================== PROPERTIES =========================================

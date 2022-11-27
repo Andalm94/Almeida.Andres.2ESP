@@ -53,8 +53,6 @@
             this.cmbSeleccionarAlumno = new System.Windows.Forms.ComboBox();
             this.tabNuevasMaterias = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmbCuatriSeleccionado = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.listSeleccionarMateriasCorrelativas = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpNuevaMateriaCuatrimestre = new System.Windows.Forms.GroupBox();
@@ -218,7 +216,6 @@
             this.radNewAdmin.TabStop = true;
             this.radNewAdmin.Text = "ADMIN";
             this.radNewAdmin.UseVisualStyleBackColor = true;
-            this.radNewAdmin.CheckedChanged += new System.EventHandler(this.radNewAdmin_CheckedChanged);
             // 
             // txtNewUserMail
             // 
@@ -366,7 +363,6 @@
             this.cmbSeleccionarAlumno.Name = "cmbSeleccionarAlumno";
             this.cmbSeleccionarAlumno.Size = new System.Drawing.Size(151, 23);
             this.cmbSeleccionarAlumno.TabIndex = 6;
-            this.cmbSeleccionarAlumno.TextChanged += new System.EventHandler(this.cmbSeleccionarAlumno_TextChanged);
             // 
             // tabNuevasMaterias
             // 
@@ -383,52 +379,25 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cmbCuatriSeleccionado);
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.listSeleccionarMateriasCorrelativas);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.groupBox2.Location = new System.Drawing.Point(245, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(212, 245);
+            this.groupBox2.Size = new System.Drawing.Size(212, 264);
             this.groupBox2.TabIndex = 40;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Seleccionar sus materias correlativas";
-            // 
-            // cmbCuatriSeleccionado
-            // 
-            this.cmbCuatriSeleccionado.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmbCuatriSeleccionado.FormattingEnabled = true;
-            this.cmbCuatriSeleccionado.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.cmbCuatriSeleccionado.Location = new System.Drawing.Point(133, 51);
-            this.cmbCuatriSeleccionado.Name = "cmbCuatriSeleccionado";
-            this.cmbCuatriSeleccionado.Size = new System.Drawing.Size(73, 23);
-            this.cmbCuatriSeleccionado.TabIndex = 39;
-            this.cmbCuatriSeleccionado.SelectedIndexChanged += new System.EventHandler(this.cmbCuatriSeleccionado_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(6, 54);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 16);
-            this.label1.TabIndex = 38;
-            this.label1.Text = "Cuatrimestre:";
             // 
             // listSeleccionarMateriasCorrelativas
             // 
             this.listSeleccionarMateriasCorrelativas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listSeleccionarMateriasCorrelativas.FormattingEnabled = true;
             this.listSeleccionarMateriasCorrelativas.ItemHeight = 15;
-            this.listSeleccionarMateriasCorrelativas.Location = new System.Drawing.Point(6, 79);
+            this.listSeleccionarMateriasCorrelativas.Location = new System.Drawing.Point(6, 49);
             this.listSeleccionarMateriasCorrelativas.Name = "listSeleccionarMateriasCorrelativas";
             this.listSeleccionarMateriasCorrelativas.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listSeleccionarMateriasCorrelativas.Size = new System.Drawing.Size(200, 154);
+            this.listSeleccionarMateriasCorrelativas.Size = new System.Drawing.Size(200, 199);
             this.listSeleccionarMateriasCorrelativas.TabIndex = 36;
             // 
             // groupBox1
@@ -439,7 +408,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(8, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(231, 172);
+            this.groupBox1.Size = new System.Drawing.Size(231, 191);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la nueva materia";
@@ -451,7 +420,7 @@
             this.grpNuevaMateriaCuatrimestre.Controls.Add(this.radCuatri2);
             this.grpNuevaMateriaCuatrimestre.Controls.Add(this.radCuatri1);
             this.grpNuevaMateriaCuatrimestre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grpNuevaMateriaCuatrimestre.Location = new System.Drawing.Point(6, 105);
+            this.grpNuevaMateriaCuatrimestre.Location = new System.Drawing.Point(6, 114);
             this.grpNuevaMateriaCuatrimestre.Name = "grpNuevaMateriaCuatrimestre";
             this.grpNuevaMateriaCuatrimestre.Size = new System.Drawing.Size(214, 57);
             this.grpNuevaMateriaCuatrimestre.TabIndex = 35;
@@ -469,6 +438,7 @@
             this.radCuatri4.TabStop = true;
             this.radCuatri4.Text = "4";
             this.radCuatri4.UseVisualStyleBackColor = true;
+            this.radCuatri4.CheckedChanged += new System.EventHandler(this.radCuatri4_CheckedChanged);
             // 
             // radCuatri3
             // 
@@ -481,6 +451,7 @@
             this.radCuatri3.TabStop = true;
             this.radCuatri3.Text = "3";
             this.radCuatri3.UseVisualStyleBackColor = true;
+            this.radCuatri3.CheckedChanged += new System.EventHandler(this.radCuatri3_CheckedChanged);
             // 
             // radCuatri2
             // 
@@ -493,6 +464,7 @@
             this.radCuatri2.TabStop = true;
             this.radCuatri2.Text = "2";
             this.radCuatri2.UseVisualStyleBackColor = true;
+            this.radCuatri2.CheckedChanged += new System.EventHandler(this.radCuatri2_CheckedChanged);
             // 
             // radCuatri1
             // 
@@ -505,6 +477,7 @@
             this.radCuatri1.TabStop = true;
             this.radCuatri1.Text = "1";
             this.radCuatri1.UseVisualStyleBackColor = true;
+            this.radCuatri1.CheckedChanged += new System.EventHandler(this.radCuatri1_CheckedChanged);
             // 
             // lblNuevaMateriaNombre
             // 
@@ -527,7 +500,7 @@
             // btnCrearMateria
             // 
             this.btnCrearMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnCrearMateria.Location = new System.Drawing.Point(3, 190);
+            this.btnCrearMateria.Location = new System.Drawing.Point(3, 209);
             this.btnCrearMateria.Name = "btnCrearMateria";
             this.btnCrearMateria.Size = new System.Drawing.Size(236, 67);
             this.btnCrearMateria.TabIndex = 24;
@@ -984,7 +957,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picEstadoMateria)).EndInit();
             this.tabNuevasMaterias.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grpNuevaMateriaCuatrimestre.ResumeLayout(false);
@@ -1055,8 +1027,6 @@
         private ComboBox cmbSeleccionarProfesor;
         private Label lblEstadoMateria;
         private GroupBox groupBox2;
-        private ComboBox cmbCuatriSeleccionado;
-        private Label label1;
         private GroupBox groupBox1;
         private Label label5;
         private Label label4;

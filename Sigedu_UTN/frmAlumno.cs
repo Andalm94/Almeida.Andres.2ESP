@@ -18,6 +18,9 @@ namespace Sigedu_UTN
         Alumno alumnoLogueado;
         List<Materia> materiasTotales;
         List<Materia> materiasHabilitadasParaInscripcion;
+        List<Materia> materiasAprobadasDelAlumno;
+        List<Materia> materiasCursandoDelAlumno;
+
 
         public frmAlumno(int id)
         {
@@ -25,11 +28,11 @@ namespace Sigedu_UTN
             {
                 InitializeComponent();
                 alumnoLogueado = ConnectionDao.BuscarAlumnoPorId(id);
-                
 
-                
-                alumnoLogueado.MateriasAprobadas = ConnectionDao.ObtenerListadoDeMateriasAprobadasDelAlumno(id);
-                alumnoLogueado.MateriasCursando = ConnectionDao.ObtenerListadoDeMateriasCursandoDelAlumno(id);
+
+
+                materiasAprobadasDelAlumno = ConnectionDao.ObtenerListadoDeMateriasAprobadasDelAlumno(id);
+                materiasCursandoDelAlumno = ConnectionDao.ObtenerListadoDeMateriasCursandoDelAlumno(id);
                 materiasTotales = ConnectionDao.ObtenerListadoDeMaterias();
                 CargarDtgvMateriasAprobadas();
                 CargarDtgvMateriasCursando();
@@ -37,7 +40,7 @@ namespace Sigedu_UTN
 
                 cmbMaterias.ValueMember = "id";
                 cmbMaterias.DisplayMember = "nombre";
-                cmbMaterias.DataSource = alumnoLogueado.MateriasCursando;
+                cmbMaterias.DataSource = materiasCursandoDelAlumno;
 
 
 
@@ -86,7 +89,7 @@ namespace Sigedu_UTN
             List<Materia> lista = this.materiasTotales;
 
             //Se filtran materias aprobadas
-            foreach (Materia materiaAprobada in alumnoLogueado.MateriasAprobadas)
+            foreach (Materia materiaAprobada in materiasAprobadasDelAlumno)
             {
                 for(int i = 0; i<materiasTotales.Count(); i++)
                 {
@@ -99,7 +102,7 @@ namespace Sigedu_UTN
             }
 
             //Se filtran materias cursando
-            foreach (Materia materiaCursando in alumnoLogueado.MateriasCursando)
+            foreach (Materia materiaCursando in materiasCursandoDelAlumno)
             {
                 for (int i = 0; i < materiasTotales.Count(); i++)
                 {
@@ -170,10 +173,10 @@ namespace Sigedu_UTN
                     MessageBox.Show($"¡Te has inscripto a {materiaSeleccionada.Nombre}!");
                     break;
                 case -1:
-                    MessageBox.Show("Ya estas inscripto en 2 materias.");
+                    MessageBox.Show($"No posees todas las materias correlativas aprobadas para anotarte a {materiaSeleccionada.Nombre}");
                     break;
                 case -2:
-                    MessageBox.Show($"No posees todas las materias correlativas aprobadas para anotarte a {materiaSeleccionada.Nombre}");
+                    MessageBox.Show("Ya estas inscripto en 2 materias.");
                     break;
 
             }

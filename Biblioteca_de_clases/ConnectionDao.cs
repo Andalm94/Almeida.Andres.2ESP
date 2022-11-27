@@ -136,8 +136,8 @@ namespace Biblioteca_de_clases
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = "INSERT INTO EXAMENES (ID_MATERIA, NOMBRE, FECHA)" +
-                    "VALUES (@idMateria, @nombre, @fecha);";
+                command.CommandText = "INSERT INTO EXAMENES (ID_MATERIA, NOMBRE, FECHA, CORREGIDO)" +
+                    "VALUES (@idMateria, @nombre, @fecha, 0);";
 
                 connection.Open();
 
@@ -202,90 +202,16 @@ namespace Biblioteca_de_clases
 
             return usuario;
         }
-        public static int SeleccionarIDMateriasAlumnosCursando(int idAlumno, int idMateria)
-        {
-            int id = -1;
 
-            try
-            {
-                command.CommandText = "SELECT  Materias_cursando_alumno.ID " +
-                    "FROM  Materias_cursando_alumno " +
-                    "LEFT JOIN dbo.USUARIOS ON USUARIOS.ID = Materias_cursando_alumno.ID_ALUMNO " +
-                    "LEFT JOIN dbo.MATERIAS ON MATERIAS.ID = Materias_cursando_alumno.ID_MATERIA " +
-                    "WHERE  1 = 1 " +
-                    "AND USUARIOS.ID = @idUsuario " +
-                    "AND MATERIAS.ID = @idMateria;";
-
-
-                connection.Open();
-
-                command.Parameters.AddWithValue("@idUsuario", idAlumno);
-                command.Parameters.AddWithValue("@idMateria", idMateria);
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    id = int.Parse(reader["ID"].ToString());
-                }
-
-
-            }
-            catch (Exception)
-            {
-                throw new Exception("Ha habido un error");
-            }
-            finally
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-
-
-            return id;
-        }
-        public static int ObtenerEstadoMateria(int id)
-        {
-            int estado = -1;
-            try
-            {
-                command.Parameters.Clear();
-                command.CommandText = "SELECT[ESTADO] FROM[DB_UTN].[dbo].[Materias_cursando_alumno] WHERE ID = @idRelacion; ";
-                command.Parameters.AddWithValue("@idRelacion", id);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    estado = int.Parse(reader["ESTADO"].ToString());
-
-                }
-            }
-            catch (Exception)
-            {
-                throw new Exception("Ha habido un error en la obtencion del estado de la materia");
-            }
-            finally
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-
-            return estado;
-        }
         public static int ObtenerEstadoMateria(int idAlumno, int idMateria)
         {
             int estado = -1;
 
             try
             {
-                command.CommandText = "SELECT [ESTADO] FROM[DB_UTN].[dbo].[Materias_cursando_alumno] " +
-                    "WHERE ID_ALUMNO = idAlumno AND ID_MATERIA = idMateria;";
+                command.Parameters.Clear();
+                command.CommandText = "SELECT ESTADO FROM Materias_cursando_alumno " +
+                    "WHERE ID_ALUMNO = @idAlumno AND ID_MATERIA = @idMateria;";
 
 
                 connection.Open();
@@ -296,7 +222,12 @@ namespace Biblioteca_de_clases
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    estado = int.Parse(reader["ESTADO"].ToString());
+
+                    if(!int.TryParse(reader[0].ToString(), out estado))
+                    {
+                        break;
+                    }
+                    
                 }
 
 
@@ -507,9 +438,36 @@ namespace Biblioteca_de_clases
 
         }
 
+        public static int ObtenerEstadoExamen(int idExamen)
+        {
+            int estadoExamen = -1;
+            try
+            {
+                command.Parameters.Clear();
+                command.CommandText = "SELECT CORREGIDO FROM EXAMENES WHERE ID = @idExamen;";
+                connection.Open();
+                command.Parameters.AddWithValue("@idExamen", idExamen);
+                SqlDataReader reader = command.ExecuteReader();
 
+                while (reader.Read())
+                {
+                    estadoExamen = int.Parse(reader["CORREGIDO"].ToString());
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la obtencion del estado del examen");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
 
-
+            return estadoExamen;
+        }
 
 
 
@@ -711,7 +669,7 @@ namespace Biblioteca_de_clases
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA " +
+                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA, CORREGIDO " +
                     "FROM EXAMENES  " +
                     "WHERE[ID] = @idExamen;";
                 command.Parameters.AddWithValue("@idExamen", idExamen);
@@ -722,7 +680,7 @@ namespace Biblioteca_de_clases
 
                 while (reader.Read())
                 {
-                    examen = new Examen(int.Parse(reader["ID"].ToString()), reader["NOMBRE"].ToString(), DateTime.Parse(reader["FECHA"].ToString()), int.Parse(reader["ID_MATERIA"].ToString()));
+                    examen = new Examen(int.Parse(reader["ID"].ToString()), reader["NOMBRE"].ToString(), DateTime.Parse(reader["FECHA"].ToString()), int.Parse(reader["ID_MATERIA"].ToString()), int.Parse(reader["CORREGIDO"].ToString()));
 
                 }
             }
@@ -1168,97 +1126,36 @@ namespace Biblioteca_de_clases
             return list;
         }
 
-
-
-
-        public static BindingList<string> ObtenerNombresAlumnos()
+        public static List<float> ObtenerNotasDeMateriaDeAlumno(int idAlumno, int idMateria)
         {
-            BindingList<string> list = new BindingList<string>();
-
+            List<float> list = new List<float>();
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = "SELECT [NOMBRE] FROM [DB_UTN].[dbo].[USUARIOS] WHERE [TIPO_USUARIO] = 2; ";
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    list.Add(reader["NOMBRE"].ToString());
-                }
-
-            }
-            catch (Exception)
-            {
-                throw new Exception("Ha habido un error en la obtencion de listado de nombres de alumnos");
-            }
-            finally
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-
-            return list;
-        }
-        public static BindingList<string> ObtenerNombresProfesores()
-        {
-            BindingList<string> list = new BindingList<string>();
-
-            try
-            {
-                command.Parameters.Clear();
-                command.CommandText = "SELECT [NOMBRE] FROM [DB_UTN].[dbo].[USUARIOS] WHERE [TIPO_USUARIO] = 1; ";
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    list.Add(reader["NOMBRE"].ToString());
-                }
-
-            }
-            catch (Exception)
-            {
-                throw new Exception("Ha habido un error en la obtencion de listado de nombres de profesores");
-            }
-            finally
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-
-            return list;
-        }
-        public static BindingList<string> BuscarMateriasCorrelativasDeMateria(int idMateria)
-        {
-            BindingList<string> list = new BindingList<string>();
-
-            try
-            {
-                command.Parameters.Clear();
-                command.CommandText = "SELECT ID_MATERIA_CORRELATIVA FROM Materias_correlativas_materia " +
-                    "LEFT JOIN MATERIAS " +
-                    "ON Materias_correlativas_materia.ID_MATERIA = MATERIAS.ID " +
-                    "WHERE MATERIAS.ID = @idMateria;";
+                command.CommandText = "SELECT NOTA FROM Materias_nota_alumno WHERE ID_ALUMNO = @idAlumno AND ID_MATERIA = @idMateria;";
 
 
                 connection.Open();
 
+                command.Parameters.AddWithValue("@idAlumno", idAlumno);
                 command.Parameters.AddWithValue("@idMateria", idMateria);
 
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    list.Add(reader[0].ToString());
+                    float nota;
+
+
+                    if (float.TryParse(reader[0].ToString(), out nota))
+                    {
+                        list.Add(nota);
+                    }
+
                 }
             }
             catch (Exception)
             {
-                throw new Exception("Ha habido un error en la obtencion de listado de materias correlativas");
+                throw new Exception("Ha habido un error en la obtencion de listado de notas del alumno");
             }
             finally
             {
@@ -1270,6 +1167,10 @@ namespace Biblioteca_de_clases
 
             return list;
         }
+
+
+
+
 
         public static List<Materia> ObtenerListadoDeMateriasDictandoDeProfesorSeleccionado(int idProfesor)
         {
@@ -1287,7 +1188,7 @@ namespace Biblioteca_de_clases
                     " ON USUARIOS.ID = Materias_dictando_profesor.ID_PROFESOR" +
                     " LEFT JOIN dbo.MATERIAS" +
                     " ON MATERIAS.ID = Materias_dictando_profesor.ID_MATERIA" +
-                    " WHERE USUARIOS.ID = @idProfesor;";
+                    " WHERE USUARIOS.ID = @idProfesor ORDER BY MATERIAS.NOMBRE";
 
                 command.Parameters.AddWithValue("@idProfesor", idProfesor);
 
@@ -1324,7 +1225,7 @@ namespace Biblioteca_de_clases
                 connection.Open();
 
 
-                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA" +
+                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA, CORREGIDO" +
                     " FROM EXAMENES" +
                     " WHERE ID_MATERIA = @idMateria;";
 
@@ -1334,7 +1235,7 @@ namespace Biblioteca_de_clases
 
                 while (reader.Read())
                 {
-                    list.Add(new Examen(int.Parse(reader[0].ToString()), reader[1].ToString(), DateTime.Parse(reader[2].ToString()), int.Parse(reader[3].ToString())));
+                    list.Add(new Examen(int.Parse(reader[0].ToString()), reader[1].ToString(), DateTime.Parse(reader[2].ToString()), int.Parse(reader[3].ToString()), int.Parse(reader[4].ToString())));
                 }
             }
             catch (Exception)
@@ -1352,9 +1253,10 @@ namespace Biblioteca_de_clases
 
             return list;
         }
-        public static BindingList<string> ObtenerListadoDeNombresDeAlumnosQueCursanLaMateria(int idMateria)
+
+        public static List<Examen> ObtenerListadoExamenesDeMateriaSeleccionada(int idMateria, int estadoCorregido)
         {
-            BindingList<string> list = new BindingList<string>();
+            List<Examen> list = new List<Examen>();
 
             try
             {
@@ -1362,26 +1264,23 @@ namespace Biblioteca_de_clases
                 connection.Open();
 
 
-                command.CommandText = "SELECT USUARIOS.NOMBRE " +
-                    "FROM dbo.Materias_cursando_alumno " +
-                    "LEFT JOIN dbo.USUARIOS " +
-                    "ON USUARIOS.ID = Materias_cursando_alumno.ID_ALUMNO " +
-                    "LEFT JOIN dbo.MATERIAS " +
-                    "ON MATERIAS.ID = Materias_cursando_alumno.ID_MATERIA " +
-                    "WHERE MATERIAS.ID = @idMateria;";
+                command.CommandText = "SELECT ID, NOMBRE, FECHA, ID_MATERIA, CORREGIDO" +
+                    " FROM EXAMENES" +
+                    " WHERE ID_MATERIA = @idMateria AND CORREGIDO = @estadoCorregido;";
 
                 command.Parameters.AddWithValue("@idMateria", idMateria);
+                command.Parameters.AddWithValue("@estadoCorregido", estadoCorregido);
 
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    list.Add(reader[0].ToString());
+                    list.Add(new Examen(int.Parse(reader[0].ToString()), reader[1].ToString(), DateTime.Parse(reader[2].ToString()), int.Parse(reader[3].ToString()), int.Parse(reader[4].ToString())));
                 }
             }
             catch (Exception)
             {
-                throw new Exception("Ha habido un error en la obtencion de listado de nombres de alumnos que cursan la materia seleccionada");
+                throw new Exception("Ha habido un error en la obtencion de listado de examenes de materia seleccionada");
             }
             finally
             {
@@ -1390,10 +1289,11 @@ namespace Biblioteca_de_clases
                     connection.Close();
                 }
             }
+
+
             return list;
-
-
         }
+
         public static List<Alumno> ObtenerListadoDeAlumnosQueCursanLaMateria(int idMateria)
         {
             List<Alumno> list = new List<Alumno>();
@@ -1517,8 +1417,8 @@ namespace Biblioteca_de_clases
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = "INSERT INTO [DB_UTN].[dbo].[Materias_cursando_alumno] (ID_ALUMNO, ID_MATERIA) " +
-                    "VALUES (@idAlumno, @idMateria);";
+                command.CommandText = "INSERT INTO [DB_UTN].[dbo].[Materias_cursando_alumno] (ID_ALUMNO, ID_MATERIA, ESTADO) " +
+                    "VALUES (@idAlumno, @idMateria, 1);";
 
                 connection.Open();
 
@@ -1604,5 +1504,105 @@ namespace Biblioteca_de_clases
                 }
             }
         }
+    
+        public static void MarcarExamenCorregido(int idExamen)
+        {
+            int filas = 0;
+
+            try
+            {
+                command.Parameters.Clear();
+                connection.Open();
+
+
+                command.CommandText = "UPDATE EXAMENES SET CORREGIDO = 1 WHERE ID = @idExamen;";
+
+                command.Parameters.AddWithValue("@idExamen", idExamen);
+
+
+
+                filas = command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la eliminacion del examen");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+    
+        public static void AprobarMateriaAlumno(int idAlumno, int idMateria, float nota1, float nota2, float promedio)
+        {
+            int filas = 0;
+
+            try
+            {
+                command.Parameters.Clear();
+                connection.Open();
+
+
+                command.CommandText = "INSERT INTO Materias_aprobadas_alumno (ID_ALUMNO, ID_MATERIA, NOTA_1, NOTA_2, PROMEDIO) " +
+                    "VALUES(@idAlumno, @idMateria, @nota1, @nota2, @promedio);";
+
+                command.Parameters.AddWithValue("@idAlumno", idAlumno);
+                command.Parameters.AddWithValue("@idMateria", idMateria);
+                command.Parameters.AddWithValue("@nota1", nota1);
+                command.Parameters.AddWithValue("@nota2", nota2);
+                command.Parameters.AddWithValue("@promedio", promedio);
+
+
+                filas = command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la carga de materia aprobada al alumno");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+    
+        public static void EliminarMateriaCursandoAlumno(int idAlumno, int idMateria)
+        {
+            int filas = 0;
+
+            try
+            {
+                command.Parameters.Clear();
+                connection.Open();
+
+
+                command.CommandText = "DELETE FROM Materias_cursando_alumno WHERE ID_ALUMNO = @idAlumno AND ID_MATERIA = @idMateria;";
+
+                command.Parameters.AddWithValue("@idAlumno", idAlumno);
+                command.Parameters.AddWithValue("@idMateria", idMateria);
+
+
+                filas = command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la carga de materia aprobada al alumno");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        
+        
     }
 }
