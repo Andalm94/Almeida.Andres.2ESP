@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
+using System.Dynamic;
+using System.Reflection.PortableExecutable;
 
 namespace Biblioteca_de_clases
 {
@@ -69,8 +73,8 @@ namespace Biblioteca_de_clases
             {
                 foreach(T item in listado)
                 {
-                    jsonString = JsonSerializer.Serialize(item);
-                    sw.Write(jsonString + "\n");
+                    jsonString = System.Text.Json.JsonSerializer.Serialize(item);
+                    sw.Write(jsonString);
                 }
                 
                 
@@ -96,5 +100,19 @@ namespace Biblioteca_de_clases
         }
 
 
+
+        public List<Alumno> LeerArchivoJson()
+        {
+
+            string objetoJson = File.ReadAllText(path);
+            var list = System.Text.Json.JsonSerializer.Deserialize<List<Alumno>>(objetoJson);
+
+            return list;
+        }
+
+
+
     }
+    //
+
 }

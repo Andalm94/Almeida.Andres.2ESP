@@ -382,7 +382,7 @@ namespace Sigedu_UTN
                     {
                         MessageBox.Show("Ha habido un error en la exportacion de datos.");
                     }
- 
+
                 }
             }
             catch (Exception ex)
@@ -406,7 +406,22 @@ namespace Sigedu_UTN
             return respuesta;
         }
 
+        private void btnImportarAlumnos_Click(object sender, EventArgs e)
+        {
 
+            try
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    adminLogueado.ImportarDatos(openFileDialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
 
 
 

@@ -63,6 +63,40 @@ namespace Biblioteca_de_clases
 
             return filas;
         }
+        public static int CrearNuevoUsuario(int id, int tipoUsuario, string nombre, string email, string password)
+        {
+            int filas = 0;
+
+            try
+            {
+                command.Parameters.Clear();
+                command.CommandText = "INSERT INTO[DB_UTN].[dbo].[USUARIOS](ID, TIPO_USUARIO, NOMBRE, EMAIL, PASSWORD)" +
+                "VALUES(@id, @tipoUsuario, @nombreNuevoUsuario, @emailNuevoUsuario, @passNuevoUsuario);";
+
+                connection.Open();
+
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@tipoUsuario", tipoUsuario);
+                command.Parameters.AddWithValue("@nombreNuevoUsuario", nombre);
+                command.Parameters.AddWithValue("@emailNuevoUsuario", email);
+                command.Parameters.AddWithValue("@passNuevoUsuario", password);
+
+                filas = command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha habido un error en la creacion de un nuevo usuario");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+
+            return filas;
+        }
         public static void CrearNuevaMateria(string nombre, int cuatrimestre)
         {
             int filas = 0;

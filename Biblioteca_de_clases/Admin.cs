@@ -159,11 +159,24 @@ namespace Biblioteca_de_clases
 
                 Archivo<Alumno> file = new Archivo<Alumno>(path + ".json");
                 file.GuardarArchivoJSON(listadoAlumnos);
+
                 success = true;
 
             }
             return success;
         }
     
+        public void ImportarDatos(string path)
+        {
+            Archivo<Alumno> file = new Archivo<Alumno>(path);
+            List<Alumno> listadoAlumnos = file.LeerArchivoJson();
+
+
+            foreach (Alumno alumno in listadoAlumnos)
+            {
+                ConnectionDao.CrearNuevoUsuario(alumno.TipoUsuario, alumno.Nombre, alumno.Email, alumno.Password);
+            }
+            
+        }
     }
 }

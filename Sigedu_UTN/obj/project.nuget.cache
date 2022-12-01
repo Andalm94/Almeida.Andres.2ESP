@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "E5GMGqROhHlPGq/k2Ogr7gMHG6v9bFJ9iTrwl+se9W8aD/tNtf4vWI5cbwCcZ6zt1PtKAfhff5X3aAfbJDAIBQ==",
+  "dgSpecHash": "ZlL89M3f4FnkrFmRfHMlbs0zHgFCHbp9zEzl815GsLgdfCRaqhmEre/HyBiMVWz1nl7wfGE8caxZhvcEmAoWsQ==",
   "success": true,
   "projectFilePath": "D:\\Andres\\U\\2do Cuatri\\Programacion2\\SegundoParcial_PyL2\\Sigedu_UTN\\Sigedu_UTN.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andres\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Andres\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Andres\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\Andres\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Andres\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Andres\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Andres\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

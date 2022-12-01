@@ -53,3 +53,5 @@ D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\ne
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+D:\Andres\U\2do Cuatri\Programacion2\SegundoParcial_PyL2\Sigedu_UTN\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll

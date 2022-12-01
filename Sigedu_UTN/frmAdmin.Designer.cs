@@ -101,6 +101,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnImportarAlumnos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabNuevosUsuarios.SuspendLayout();
             this.grpUserType.SuspendLayout();
@@ -689,6 +690,7 @@
             // 
             // tabPage11
             // 
+            this.tabPage11.Controls.Add(this.btnImportarAlumnos);
             this.tabPage11.Controls.Add(this.radJson);
             this.tabPage11.Controls.Add(this.radCsv);
             this.tabPage11.Controls.Add(this.picJson);
@@ -935,6 +937,17 @@
             this.panel1.Size = new System.Drawing.Size(475, 318);
             this.panel1.TabIndex = 8;
             // 
+            // btnImportarAlumnos
+            // 
+            this.btnImportarAlumnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnImportarAlumnos.Location = new System.Drawing.Point(311, 20);
+            this.btnImportarAlumnos.Name = "btnImportarAlumnos";
+            this.btnImportarAlumnos.Size = new System.Drawing.Size(142, 56);
+            this.btnImportarAlumnos.TabIndex = 26;
+            this.btnImportarAlumnos.Text = "Importar listado de alumnos";
+            this.btnImportarAlumnos.UseVisualStyleBackColor = true;
+            this.btnImportarAlumnos.Click += new System.EventHandler(this.btnImportarAlumnos_Click);
+            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1057,5 +1070,6 @@
         private PictureBox picJson;
         private PictureBox picCsv;
         private ComboBox cmbMateriaExport;
+        private Button btnImportarAlumnos;
     }
 }
