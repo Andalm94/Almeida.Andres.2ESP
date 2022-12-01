@@ -28,6 +28,7 @@ namespace Sigedu_UTN
         private SaveFileDialog saveFileDialog;
 
 
+
         public frmAdmin()
         {
             InitializeComponent();
@@ -48,19 +49,13 @@ namespace Sigedu_UTN
                 cmbSeleccionarProfesor.ValueMember = "id";
                 cmbSeleccionarProfesor.DisplayMember = "nombre";
                 cmbSeleccionarProfesor.DataSource = listadoProfesoresTotales;
-                cmbSeleccionarMateriaProfesor.ValueMember = "id";
-                cmbSeleccionarMateriaProfesor.DisplayMember = "nombre";
-                cmbSeleccionarMateriaProfesor.DataSource = listadoMateriasTotales;
-
 
                 //Comboboxes: Asignar alumno a materia
-                cmbSeleccionarMateriaAlumno.ValueMember = "id";
-                cmbSeleccionarMateriaAlumno.DisplayMember = "nombre";
-                cmbSeleccionarMateriaAlumno.DataSource = listadoMateriasTotales;
                 cmbSeleccionarAlumnoAsignarMateria.ValueMember = "id";
                 cmbSeleccionarAlumnoAsignarMateria.DisplayMember = "nombre";
                 cmbSeleccionarAlumnoAsignarMateria.DataSource = listadoAlumnosTotales;
 
+                RefrescarListadoMaterias();
 
                 //Comboboxes: Exportar datos
                 cmbMateriaExport.ValueMember = "id";
@@ -198,6 +193,7 @@ namespace Sigedu_UTN
                 {
                     MessageBox.Show($"Se ha cargado exitosamente la siguiente materia: \n\n Nombre: {nombreNuevaMateria}" +
                     $"\n Cuatrimestre: {cuatrimestre}");
+                    RefrescarListadoMaterias();
                 }
                 else
                 {
@@ -289,6 +285,17 @@ namespace Sigedu_UTN
             listSeleccionarMateriasCorrelativas.DataSource = materiasDelCuatriSeleccionado;
         }
 
+        private void RefrescarListadoMaterias()
+        {
+            listadoMateriasTotales = ConnectionDao.ObtenerListadoDeMaterias();
+            cmbSeleccionarMateriaProfesor.DisplayMember = "nombre";
+            cmbSeleccionarMateriaProfesor.ValueMember = "id";
+            cmbSeleccionarMateriaProfesor.DataSource = listadoMateriasTotales;
+
+            cmbSeleccionarMateriaAlumno.DisplayMember = "nombre";
+            cmbSeleccionarMateriaAlumno.ValueMember = "id";
+            cmbSeleccionarMateriaAlumno.DataSource = listadoMateriasTotales;
+        }
 
 
         //========================================= ASIGNAR MATERIA ======================================================

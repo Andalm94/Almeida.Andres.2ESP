@@ -12,11 +12,7 @@ namespace Biblioteca_de_clases
 
     public class Alumno : usuarioUTN
     {
-        /*
-        [JsonIgnore] List<Materia> materiasAprobadas; 
-        [JsonIgnore] List<Materia> materiasCursando; 
-        [JsonIgnore] List<Materia> materiasHabilitadasParaInscripcion;
-        */
+
 
         //======================================================= CONSTRUCTORES =================================================================
 
@@ -35,25 +31,6 @@ namespace Biblioteca_de_clases
 
         }
 
-        //======================================================= PROPIEDADES =================================================================
-
-        /*
-        public List<Materia> MateriasAprobadas
-        {
-            get { return materiasAprobadas; }
-            set { materiasAprobadas = value; }
-        }
-        public List<Materia> MateriasCursando
-        {
-            get { return materiasCursando; }
-            set { materiasCursando = value; }
-        }
-        public List<Materia> MateriasHabilitadasParaInscripcion
-        {
-            get { return materiasHabilitadasParaInscripcion; }
-            set { materiasHabilitadasParaInscripcion = value; }
-        }
-        */
 
         //======================================================= METODOS =================================================================
     

@@ -171,6 +171,7 @@ namespace Sigedu_UTN
             {
                 case 1:
                     MessageBox.Show($"¡Te has inscripto a {materiaSeleccionada.Nombre}!");
+                    CargarDtgvMateriasCursando();
                     break;
                 case -1:
                     MessageBox.Show($"No posees todas las materias correlativas aprobadas para anotarte a {materiaSeleccionada.Nombre}");
