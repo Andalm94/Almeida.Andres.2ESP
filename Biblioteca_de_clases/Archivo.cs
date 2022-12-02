@@ -71,12 +71,9 @@ namespace Biblioteca_de_clases
             string jsonString; 
             try
             {
-                foreach(T item in listado)
-                {
-                    jsonString = System.Text.Json.JsonSerializer.Serialize(item);
-                    sw.Write(jsonString);
-                }
-                
+                jsonString = System.Text.Json.JsonSerializer.Serialize(listado);
+                sw.Write(jsonString);
+
                 
                 respuesta = true;
             }
@@ -100,19 +97,17 @@ namespace Biblioteca_de_clases
         }
 
 
-
         public List<Alumno> LeerArchivoJson()
         {
 
             string objetoJson = File.ReadAllText(path);
-            var list = System.Text.Json.JsonSerializer.Deserialize<List<Alumno>>(objetoJson);
+            List<Alumno> list = System.Text.Json.JsonSerializer.Deserialize<List<Alumno>>(objetoJson);
 
             return list;
         }
 
 
-
     }
-    //
+
 
 }
